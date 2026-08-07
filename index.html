@@ -41,6 +41,9 @@
         <button class="tab active" data-tab="worldView">World</button>
         <button class="tab" data-tab="storiesView">Stories</button>
         <button class="tab" data-tab="eventsView">Everyday Events</button>
+        <button class="tab" data-tab="worldEventsView">World Events</button>
+        <button class="tab" data-tab="questlessView">Your Stories</button>
+        <button class="tab" data-tab="memoryNarrationView">Memories</button>
         <button class="tab" data-tab="emergentView">Emergent</button>
         <button class="tab" data-tab="lifeView">Live</button>
         <button class="tab" data-tab="charactersView">Characters</button>
@@ -51,6 +54,8 @@
         <button class="tab" data-tab="visualStoriesView">Visual Memories</button>
         <button class="tab" data-tab="generationsView">Family & Generations</button>
         <button class="tab" data-tab="societyView">Society</button>
+        <button class="tab" data-tab="npcAutonomyView">NPC Autonomy</button>
+        <button class="tab" data-tab="socialNetworkView">Social Network</button>
         <button class="tab" data-tab="factionsView">Factions</button>
         <button class="tab" data-tab="economyView">Economy</button>
         <button class="tab" data-tab="longTermView">Long-Term World</button>
@@ -59,6 +64,8 @@
         <button class="tab" data-tab="spiritsView">Spirits</button>
         <button class="tab" data-tab="travelView">Travel</button>
         <button class="tab" data-tab="atlasView">World Atlas</button>
+        <button class="tab" data-tab="regionalEvolutionView">Living Settlements</button>
+        <button class="tab" data-tab="culturalEvolutionView">Culture & Society</button>
         <button class="tab" data-tab="contentView">World Library</button>
         <button class="tab" data-tab="historyView">History</button>
         <button class="tab" data-tab="canonView">Canon Encounters</button>
@@ -68,6 +75,7 @@
         <button class="tab" data-tab="creatorView">Create Character</button>
         <button class="tab" data-tab="settingsView">Settings & Saves</button>
         <button class="tab" data-tab="betaView">Beta Diagnostics</button>
+        <button class="tab" data-tab="beta2View">Beta 2 Health</button>
       </nav>
 
       <section id="worldView" class="tab-view">
@@ -117,13 +125,14 @@
             </article>
             <article class="panel scene-panel">
               <p class="eyebrow">RIGHT NOW</p><h2 id="sceneLocationName">—</h2><p id="sceneDescription" class="scene-description">—</p>
+              <div class="director-scene"><div class="section-head"><div><p class="eyebrow">WORLD DIRECTOR 2.0 · TODAY</p><h3>What is happening around you</h3></div></div><div id="directorScene"></div><div id="directorSuggestions" class="director-suggestions"></div></div>
               <div id="presentNpcList" class="present-list"></div>
               <h3>What do you do?</h3><div id="localActions" class="action-grid"></div>
               <div class="gm-box">
-                <div class="section-head"><div><p class="eyebrow">AI STORY DIRECTOR · PHASE 5.10</p><h3>Attempt anything reasonable</h3></div><span class="status-pill">Freeform GM</span></div>
+                <div class="section-head"><div><p class="eyebrow">AI STORY DIRECTOR 2.0 · PHASE 6.10</p><h3>Attempt anything reasonable</h3></div><span class="status-pill">Freeform GM</span></div>
                 <p class="muted">Describe your action in your own words. The simulation resolves your attempt first. The Story Director then narrates it using your location, relationships, NPC knowledge, rumors, factions, economy, spirituality, training, recent history, and current world conditions.</p>
                 <textarea id="gmActionInput" rows="4" maxlength="700" placeholder="Example: I crouch a few feet from the frightened animal, place some food on the ground, and wait without staring at it."></textarea>
-                <div class="gm-controls"><button id="gmSubmitBtn" class="primary">Attempt Action</button><small class="muted">Ctrl/⌘ + Enter</small></div>
+                <div class="gm-controls"><button id="gmSubmitBtn" class="primary">Attempt Action</button><small class="muted">Ctrl/⌘ + Enter</small></div><div id="gmGenerationStatus" class="generation-status hidden">The Story Director is narrating…</div>
                 <details class="gm-settings"><summary>Game Master narration settings</summary><div class="form-grid two"><label>Mode<select id="gmMode"><option value="local">Local simulation narrator</option><option value="connected">Connected AI endpoint</option></select></label><label>Endpoint<input id="gmEndpoint" value="/api/gm" placeholder="/api/gm" /></label></div><p class="muted">Connected mode expects a server-side endpoint. API secrets should never be stored in this browser app.</p></details>
                 <h4>Developing Story Threads</h4><div id="directorThreads" class="event-log"></div><h4>Recent Freeform Actions</h4><div id="gmHistory" class="gm-history"></div>
               </div>
@@ -220,6 +229,29 @@
         </div>
       </section>
 
+      <section id="worldEventsView" class="tab-view hidden">
+        <div id="noWorldEventsLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect larger regional events.</p></div>
+        <div id="worldEventsGame" class="hidden">
+          <article class="panel"><p class="eyebrow">DYNAMIC WORLD EVENTS & CONSEQUENCES · PHASE 6.10</p><h2>The World Does Not Wait for You</h2><p class="muted">Strikes, protests, crime waves, elections, disasters, shortages, spirit disturbances, tournaments, migration, health crises, and construction projects now emerge from regional pressure, progress over multiple days, and resolve even when you never participate.</p><div id="worldEventsSummary" class="rel-metrics"></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Developing Here</h2><div id="activeWorldEvents"></div></article><article class="panel"><h2>Resolved Local History</h2><div id="worldEventHistory" class="event-log"></div></article></div>
+        </div>
+      </section>
+
+      <section id="questlessView" class="tab-view hidden">
+        <div id="noQuestlessLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character and live normally. Stories will emerge from what you choose to care about.</p></div>
+        <div id="questlessGame" class="hidden">
+          <article class="panel"><p class="eyebrow">AI QUESTLESS STORYTELLING · PHASE 6.10</p><h2>No Quest Log. Your Choices Become the Story.</h2><p class="muted">The game watches patterns in your freely chosen actions. Repeated interest in a person, mystery, conflict, place, world event, or consequence can become an ongoing personal story thread. Nothing here is an objective, checklist, or mandatory mission.</p><div id="questlessSummary" class="rel-metrics"></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Threads You Are Creating</h2><div id="questlessThreads"></div></article><article class="panel"><h2>Stories That Moved On</h2><div id="questlessPast" class="event-log"></div></article></div>
+        </div>
+      </section>
+
+      <section id="memoryNarrationView" class="tab-view hidden">
+        <div id="noMemoryNarrationLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect remembered history.</p></div>
+        <div id="memoryNarrationGame" class="hidden">
+          <article class="panel"><p class="eyebrow">MEMORY-DRIVEN AI NARRATION · PHASE 6.10</p><h2>People Remember How You Treated Them</h2><p class="muted">NPC reactions and AI narration can now draw on actual witnessed events, conversations, promises, secrets, lies, favors, fights, relationship history, rumors, and major shared moments. Knowledge remains source-aware so NPCs do not become omniscient.</p><div id="memoryNarrationSummary" class="rel-metrics"></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>What People Remember</h2><div id="memoryNarrationPeople"></div></article><article class="panel"><h2>Recent Memory Callbacks</h2><div id="memoryNarrationCallbacks" class="event-log"></div></article></div>
+        </div>
+      </section>
       <section id="trainingView" class="tab-view hidden">
         <div id="noTrainingLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character before beginning training.</p></div>
         <div id="trainingGame" class="hidden">
@@ -290,6 +322,27 @@
       </section>
 
 
+      <section id="generationalWorldView" class="tab-view hidden">
+        <div id="noGenerationalWorldLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect their place in the changing generations.</p></div>
+        <div id="generationalWorldGame" class="hidden">
+          <article class="panel"><p class="eyebrow">GENERATIONAL WORLD SIMULATION · PHASE 6.10</p><h2>The World Can Outlive a Character</h2><p class="muted">Families now accumulate occupations, reputation, stories, inheritance, descendants, and historical memory. Children can inherit family paths or choose different lives, while younger generations learn major past events as stories rather than firsthand memories.</p><div id="generationalWorldSummary" class="rel-metrics"></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Family Legacy</h2><div id="familyLegacyPanel"></div></article><article class="panel"><h2>History People Now Remember</h2><div id="historicalMemoryPanel" class="event-log"></div></article></div>
+        </div>
+      </section>
+      <section id="regionalEvolutionView" class="tab-view hidden">
+        <div id="noRegionalEvolutionLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect how settlements are changing across the years.</p></div>
+        <div id="regionalEvolutionGame" class="hidden">
+          <article class="panel"><p class="eyebrow">REGIONAL EVOLUTION & LIVING SETTLEMENTS · PHASE 6.10</p><h2>Places Change Too</h2><p class="muted">Population, prosperity, infrastructure, disasters, industries, migration, and long-term investment can now reshape settlements. Districts can appear or decline, industries can become part of local identity, damage can remain visible for years, and successful communities can slowly recover.</p><div id="regionalEvolutionSummary" class="rel-metrics"></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Current Settlement</h2><div id="settlementEvolutionPanel"></div><h3>Physical History</h3><div id="regionalEvolutionHistory" class="event-log"></div></article><article class="panel"><h2>Other Changing Settlements</h2><div id="regionalComparison"></div></article></div>
+        </div>
+      </section>
+      <section id="culturalEvolutionView" class="tab-view hidden">
+        <div id="noCulturalEvolutionLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to see how local culture is changing.</p></div>
+        <div id="culturalEvolutionGame" class="hidden">
+          <article class="panel"><p class="eyebrow">CULTURE, SOCIETY & HISTORICAL CHANGE · PHASE 6.10</p><h2>An Era Is More Than a Date</h2><p class="muted">Fashion, slang, food, entertainment, traditions, attitudes toward bending, social expectations, and generational disagreements can now drift as decades pass. Economic development, technology, population, disasters, competition, spirituality, and age demographics all influence cultural change.</p><div id="culturalEvolutionSummary" class="rel-metrics"></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Current Culture</h2><div id="currentCultureEvolution"></div></article><article class="panel"><h2>Recorded Cultural Shifts</h2><div id="culturalHistory" class="event-log"></div></article></div>
+        </div>
+      </section>
       <section id="canonView" class="tab-view hidden">
         <div id="noCanonLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to see how their life intersects with history.</p></div>
         <div id="canonGame" class="hidden">
@@ -328,6 +381,22 @@
         <article class="panel"><p class="eyebrow">SOCIETY CHRONICLE</p><h2>Lives Moving Without You</h2><div id="societyLog" class="event-log"></div></article>
       </section>
 
+
+      <section id="npcAutonomyView" class="tab-view hidden">
+        <div id="noNpcAutonomyLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect autonomous NPC lives.</p></div>
+        <div id="npcAutonomyGame" class="hidden">
+          <article class="panel"><p class="eyebrow">NPC AUTONOMY 2.0 · PHASE 6.10</p><h2>People Keep Living When You Are Not Looking</h2><p class="muted">NPCs now choose actions from personal ambition, sociability, risk tolerance, stability, family drive, wanderlust, training drive, stress, satisfaction, money, relationships, and goals. Their lives do not wait for the player.</p><div id="npcAutonomySummary" class="rel-metrics"></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Residents Living Their Lives</h2><div id="npcAutonomyPeople"></div></article><article class="panel"><h2>Recent Autonomous Decisions</h2><div id="npcAutonomyLog" class="event-log"></div></article></div>
+        </div>
+      </section>
+
+      <section id="socialNetworkView" class="tab-view hidden">
+        <div id="noSocialNetworkLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect the living social network.</p></div>
+        <div id="socialNetworkGame" class="hidden">
+          <article class="panel"><p class="eyebrow">DYNAMIC RELATIONSHIP SIMULATION · PHASE 6.10</p><h2>Everybody Knows Somebody</h2><p class="muted">NPC friendships, rivalries, loyalties, workplace ties, romances, arguments, gossip, jealousy, reconciliations, alliances, feuds, and people taking sides now develop as a connected social network.</p><div id="socialNetworkSummary" class="rel-metrics"></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Local Social Web</h2><div id="socialNetworkPeople"></div></article><article class="panel"><h2>Social Developments</h2><div id="socialNetworkLog" class="event-log"></div></article></div>
+        </div>
+      </section>
 
       <section id="factionsView" class="tab-view hidden">
         <div id="noFactionsLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to interact with institutions and local power.</p></div>
@@ -440,6 +509,13 @@
         <article class="panel"><p class="eyebrow">BETA 1 TEST TARGETS</p><h2>Connected systems ready for play testing</h2><div class="beta-test-grid"><div>New world → creator → first morning</div><div>Freeform AI actions & dialogue</div><div>Relationships, romance & generations</div><div>Bending training & combat</div><div>Jobs, businesses & economy</div><div>Travel, maps & discovery</div><div>Everyday & emergent events</div><div>Portrait & Visual Memory art</div><div>Multi-year saves & migration</div></div></article>
       </section>
 
+      <section id="beta2View" class="tab-view hidden">
+        <div id="noBeta2Life" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect Phase 6 integration health.</p></div>
+        <div id="beta2Game" class="hidden">
+          <article class="panel"><p class="eyebrow">FULL SIMULATION INTEGRATION & OPTIMIZATION · PHASE 6.10</p><h2>Project Four Nations — Beta 2</h2><p class="muted">Phase 6 systems now share consequences through a unified daily/yearly integration pass. Persistent histories are bounded, Director context size is tracked, and long-world warnings surface before performance becomes unmanageable.</p><div id="beta2Summary" class="rel-metrics"></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Integrated Systems</h2><div id="beta2Systems"></div></article><article class="panel"><h2>World Health</h2><div id="beta2Health"></div></article></div>
+        </div>
+      </section>
       <section id="creatorView" class="tab-view hidden">
         <article class="panel creator-shell">
           <div class="section-head"><div><p class="eyebrow">CREATE A LIFE</p><h2>Character Creator</h2><p class="muted" id="creatorWorldContext"></p></div><button id="randomizeCharacterBtn">Surprise Me</button></div>

@@ -1,0 +1,12 @@
+# Phase 6.8 Test Checklist
+- Advance several years and inspect Living Settlements
+- Grow a settlement population and confirm development can rise
+- Confirm sustained growth can create new districts
+- Confirm local occupations can establish an industry
+- Cause or observe disaster damage and verify scars can persist
+- Confirm prosperous/infrastructurally strong towns gradually repair damage
+- Create several years of population decline and inspect district decline
+- Compare multiple settlements after 10+ years
+- Confirm settlement changes enter historical memory
+- Switch to a later-generation character and confirm Story Director receives the evolved local context
+- Save/reload and confirm districts, industries, identity and milestones persist

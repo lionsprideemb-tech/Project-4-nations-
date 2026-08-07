@@ -93,3 +93,23 @@
 .beta-test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem}.beta-test-grid>div{padding:.85rem;border:1px solid var(--line,#d8d2c4);border-radius:12px}.status-pill.warning{font-weight:700}.panel .actions{flex-wrap:wrap}
 
 #enterMyLifeBtn{font-weight:800}.first-day-choices button:last-child{font-weight:800}
+
+.director-scene{margin:1rem 0;padding:1rem;border:1px solid var(--line,#d8d2c4);border-radius:14px;background:rgba(127,127,127,.055)}.director-scene p{line-height:1.55}.director-suggestions{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:.8rem}.director-suggestions button{flex:1 1 150px}.generation-status{margin-top:.65rem;padding:.6rem .75rem;border-radius:10px;background:rgba(127,127,127,.09);font-size:.9rem}
+
+.autonomy-card{padding:.85rem;border:1px solid var(--line,#d8d2c4);border-radius:12px;margin:.65rem 0}.autonomy-card small{display:block;margin-top:.2rem}.autonomy-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.35rem;margin-top:.6rem;font-size:.85rem}.autonomy-stats span{padding:.35rem .45rem;border-radius:8px;background:rgba(127,127,127,.07)}
+
+.network-card{padding:.85rem;border:1px solid var(--line,#d8d2c4);border-radius:12px;margin:.65rem 0}.network-card small{display:block;margin-top:.2rem}.network-links{display:flex;flex-direction:column;gap:.25rem;margin-top:.55rem}.network-links span{font-size:.85rem;padding:.35rem .45rem;border-radius:8px;background:rgba(127,127,127,.07)}
+
+.world-event-card{padding:1rem;border:1px solid var(--line,#d8d2c4);border-radius:14px;margin:.75rem 0}.world-event-card .actions{flex-wrap:wrap}.world-event-card p{line-height:1.5}
+
+.thread-card{padding:1rem;border:1px solid var(--line,#d8d2c4);border-radius:14px;margin:.75rem 0}.thread-card details{margin-top:.7rem}.thread-card details p{font-size:.88rem;margin:.4rem 0}
+
+.memory-card{padding:.9rem;border:1px solid var(--line,#d8d2c4);border-radius:12px;margin:.65rem 0}.memory-card p{line-height:1.45;margin:.45rem 0}
+
+#familyLegacyPanel .event,#historicalMemoryPanel .event{margin:.55rem 0}
+
+.evolution-row{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px solid var(--line,#d8d2c4)}.evolution-row span{font-size:.85rem;opacity:.75}
+
+#currentCultureEvolution h4{margin:.9rem 0 .2rem}#currentCultureEvolution p{line-height:1.45}
+
+#beta2Health .notice{margin:.55rem 0}

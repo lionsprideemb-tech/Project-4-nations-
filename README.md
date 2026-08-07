@@ -1,55 +1,43 @@
-# Project Four Nations — Beta 1.1
+# Project Four Nations — Beta 2 (Phase 6.10)
 
-**Beta 1.1 — First Life Hotfix**
+Phase 6.10 integrates and optimizes all Phase 6 living-world systems.
 
-This update repairs the critical transition from the finished character creator into the playable life simulation while preserving the existing character-creation experience.
+## Integrated simulation
+A unified daily integration pass now lets:
+- major world events affect NPC stress/satisfaction
+- political/civic/crime events feed local gossip
+- settlement prosperity/damage affect resident wellbeing
+- cultural generation gaps affect younger residents
+- evolved settlement identity influence culture over years
+- family reputation refresh alongside long-term world evolution
 
-## Main fix
+## Performance safeguards
+Persistent high-volume histories are bounded:
+- world events
+- Story Director memory/rewards
+- NPC autonomy logs
+- social events/gossip
+- questless story beats
+- shared memories/callbacks
+- major world events/history
+- generational historical memory/inheritance
+- regional/cultural history
+- everyday-event history
 
-Character creation now commits the player character to the world before optional systems initialize.
+## Director performance
+The game records compact Story Director context size and recent connected-AI latency. Routine actions continue using fast-local narration where appropriate.
 
-A failure in family generation, starting connections, portrait setup, maps, exploration, career initialization, town opportunities, or another optional subsystem should no longer prevent the life from starting.
+## Beta 2 Health
+A new screen shows:
+- population
+- active world events
+- open personal story threads
+- average connected-AI latency
+- average Director context size
+- integration status of all major Phase 6 systems
+- warnings for excessive NPC counts, save size, gossip volume or simultaneous events
 
-## Recovery tools
-
-Beta Diagnostics now includes **Enter My Life**.
-
-Use it when a completed Beta 1 character exists but onboarding failed to launch.
-
-Beta 1.1 repairs:
-- active-character reference
-- hometown
-- current settlement
-- current location
-
-and then attempts to open the First Morning or normal Life screen.
-
-## Schema
-
-**Schema Version 41**
-
-The previous Beta 1 storage key remains in the migration chain.
-
-## Run locally
-
-Requires Node.js 20+.
-
-```bash
-npm start
-```
-
-Then open:
-
-```text
-http://localhost:8787
-```
-
-AI narration and image generation remain optional.
-
-## GitHub update
-
-See `GITHUB_UPDATE.md` for instructions for updating an existing repository.
-
-## Beta status
-
-This remains a testing build. Export a world backup before destructive stress tests or very long simulation jumps.
+## Compatibility
+- Schema Version 51
+- Phase 6.9 remains in the migration chain
+- Package version 6.10.0-beta.2

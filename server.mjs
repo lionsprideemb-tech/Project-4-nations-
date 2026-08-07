@@ -84,13 +84,13 @@ async function callOpenAI(context,requestType){
     model:OPENAI_MODEL,
     instructions:systemPrompt+`\nCurrent request type: ${requestType}.`,
     input:JSON.stringify(context),
-    max_output_tokens:900
+    max_output_tokens:520
   };
-  const r=await fetch('https://api.openai.com/v1/responses',{
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),22000);const r=await fetch('https://api.openai.com/v1/responses',{
     method:'POST',
     headers:{'Authorization':`Bearer ${OPENAI_API_KEY}`,'Content-Type':'application/json'},
-    body:JSON.stringify(payload)
-  });
+    body:JSON.stringify(payload),signal:controller.signal
+  });clearTimeout(timer);
   const data=await r.json().catch(()=>({}));
   if(!r.ok)throw new Error(data?.error?.message||`AI provider returned ${r.status}`);
   const text=extractResponseText(data);

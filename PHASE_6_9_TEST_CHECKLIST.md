@@ -1,0 +1,11 @@
+# Phase 6.9 Test Checklist
+- Advance several years and inspect Culture & Society
+- Compare a prosperous modernizing settlement with a traditional settlement
+- Confirm fashion/slang/food/entertainment trends can accumulate
+- Build a young-heavy population and inspect generational pressure
+- Build an older population and inspect tradition pressure
+- Run tournaments and inspect martial prestige
+- Create spiritual instability and inspect spirituality changes
+- Advance 20+ years and compare culture with the starting period
+- Confirm Story Director receives current cultural context
+- Save/reload and confirm cultural trends and history persist

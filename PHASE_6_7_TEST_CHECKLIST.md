@@ -1,0 +1,11 @@
+# Phase 6.7 Test Checklist
+- Create/grow a family and confirm descendants share a family line
+- Advance an NPC child to working age and check for parental career inheritance
+- Confirm career inheritance is possible but not guaranteed
+- Advance through an NPC death with surviving children and inspect inheritance
+- Confirm deceased relatives remain in family legacy
+- Resolve major world events, advance several years, and inspect historical memory
+- Confirm young characters learn old events as family/community stories, not witnessed memories
+- Advance across a 10-year boundary and confirm a decade snapshot
+- Switch to an adult descendant and inspect inherited generational context
+- Save/reload and confirm family lines, history, inheritance, and generation data persist
