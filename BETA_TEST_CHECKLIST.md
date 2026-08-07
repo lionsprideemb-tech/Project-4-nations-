@@ -1,29 +1,28 @@
-# Beta 1 Test Checklist
+# Beta 1.1 Hotfix Test Checklist
 
-## First hour
-- Create worlds in multiple eras
-- Complete all 9 creator steps
-- Test all First Morning choices
-- Save/reload during and after onboarding
+## Critical path
+- Create a new world
+- Complete all 9 character-creator steps
+- Press the final creation button
+- Confirm First Morning opens
+- Press **Enter My Life**
+- Confirm the Life screen opens
+- Save and reload
+- Confirm the active character still exists in the same hometown
 
-## Core loops
-- Freeform AI action
-- Persistent NPC dialogue/memory
-- Friendship and adult romance
-- Training and combat/injury
-- Work, promotions, business profit/loss
-- Monthly living costs/debt
-- Travel and local navigation
-- Everyday event attend/help/skip
-- Visual Memory and portrait generation
-
-## Long-term
-- Advance a month, season, year and several years
-- Test birthdays, aging, households and generations on disposable saves
-- Confirm long-running logs stay bounded
+## First Morning choices
+- Start with work
+- Find your connection
+- Walk around town
+- See what is happening today
+- Enter My Life
 
 ## Recovery
-- Run Beta Diagnostics
-- Download JSON backup
-- Test safe-reference repair on a disposable corrupted copy
-- Confirm Phase 5.9 save migration
+- Load a Beta 1 save with a completed character
+- Open Beta Diagnostics
+- Press **Enter My Life**
+- Confirm hometown/current-location repair
+- Run Integrity Check
+
+## Optional-system resilience
+A failure in starting family, starting connection, town opportunity, portrait, exploration, or map initialization must not delete the character or trap the save.

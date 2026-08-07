@@ -91,3 +91,5 @@
 .full-span{grid-column:1/-1}.first-day-hero{padding:1.5rem}.first-day-intro{font-size:1.08rem;max-width:850px}.onboarding-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}.onboarding-thread{padding:.75rem;border:1px solid var(--line,#d8d2c4);border-radius:11px;margin:.55rem 0}.first-day-choices{display:flex;flex-wrap:wrap;gap:.65rem}.first-day-choices button{min-width:160px}.creator-shell .notice{margin-top:.8rem}
 
 .beta-test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem}.beta-test-grid>div{padding:.85rem;border:1px solid var(--line,#d8d2c4);border-radius:12px}.status-pill.warning{font-weight:700}.panel .actions{flex-wrap:wrap}
+
+#enterMyLifeBtn{font-weight:800}.first-day-choices button:last-child{font-weight:800}

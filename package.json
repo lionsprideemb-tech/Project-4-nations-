@@ -1,7 +1,7 @@
 {
   "name": "project-four-nations",
   "private": true,
-  "version": "5.10.0-beta.1",
+  "version": "5.10.1-beta.1",
   "type": "module",
   "scripts": {
     "start": "node server.mjs",

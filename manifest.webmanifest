@@ -1,0 +1,9 @@
+{
+  "name":"Project Four Nations",
+  "short_name":"Four Nations",
+  "start_url":"./index.html",
+  "display":"standalone",
+  "background_color":"#e8e0cf",
+  "theme_color":"#1f3a35",
+  "description":"Sprint 2.3 living-world RPG and character creator prototype."
+}
