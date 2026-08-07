@@ -118,6 +118,7 @@
             <div><p class="eyebrow">YOUR ORDINARY DAY</p><h2 id="lifeCharacterName">—</h2><p id="lifeContext" class="muted">—</p></div>
             <div class="life-vitals" id="lifeVitals"></div>
           </div>
+          <article id="howToPlayPanel" class="panel how-to-play"></article>
           <div class="town-grid">
             <article class="panel town-map-panel">
               <div class="section-head"><div><p class="eyebrow">SETTLEMENT</p><h2 id="townName">—</h2><p id="townDescription" class="muted">—</p></div><span id="currentLocationPill" class="status-pill">—</span></div>
@@ -129,7 +130,7 @@
               <div id="presentNpcList" class="present-list"></div>
               <h3>What do you do?</h3><div id="localActions" class="action-grid"></div>
               <div class="gm-box">
-                <div class="section-head"><div><p class="eyebrow">AI STORY DIRECTOR 2.0 · PHASE 6.10</p><h3>Attempt anything reasonable</h3></div><span class="status-pill">Freeform GM</span></div>
+                <div class="section-head"><div><p class="eyebrow">AI STORY DIRECTOR 2.0 · BETA 2 HOTFIX 1</p><h3>Attempt anything reasonable</h3></div><span class="status-pill">Freeform GM</span></div>
                 <p class="muted">Describe your action in your own words. The simulation resolves your attempt first. The Story Director then narrates it using your location, relationships, NPC knowledge, rumors, factions, economy, spirituality, training, recent history, and current world conditions.</p>
                 <textarea id="gmActionInput" rows="4" maxlength="700" placeholder="Example: I crouch a few feet from the frightened animal, place some food on the ground, and wait without staring at it."></textarea>
                 <div class="gm-controls"><button id="gmSubmitBtn" class="primary">Attempt Action</button><small class="muted">Ctrl/⌘ + Enter</small></div><div id="gmGenerationStatus" class="generation-status hidden">The Story Director is narrating…</div>
@@ -232,7 +233,7 @@
       <section id="worldEventsView" class="tab-view hidden">
         <div id="noWorldEventsLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect larger regional events.</p></div>
         <div id="worldEventsGame" class="hidden">
-          <article class="panel"><p class="eyebrow">DYNAMIC WORLD EVENTS & CONSEQUENCES · PHASE 6.10</p><h2>The World Does Not Wait for You</h2><p class="muted">Strikes, protests, crime waves, elections, disasters, shortages, spirit disturbances, tournaments, migration, health crises, and construction projects now emerge from regional pressure, progress over multiple days, and resolve even when you never participate.</p><div id="worldEventsSummary" class="rel-metrics"></div></article>
+          <article class="panel"><p class="eyebrow">DYNAMIC WORLD EVENTS & CONSEQUENCES · BETA 2 HOTFIX 1</p><h2>The World Does Not Wait for You</h2><p class="muted">Strikes, protests, crime waves, elections, disasters, shortages, spirit disturbances, tournaments, migration, health crises, and construction projects now emerge from regional pressure, progress over multiple days, and resolve even when you never participate.</p><div id="worldEventsSummary" class="rel-metrics"></div></article>
           <div class="atlas-layout"><article class="panel"><h2>Developing Here</h2><div id="activeWorldEvents"></div></article><article class="panel"><h2>Resolved Local History</h2><div id="worldEventHistory" class="event-log"></div></article></div>
         </div>
       </section>
@@ -240,7 +241,7 @@
       <section id="questlessView" class="tab-view hidden">
         <div id="noQuestlessLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character and live normally. Stories will emerge from what you choose to care about.</p></div>
         <div id="questlessGame" class="hidden">
-          <article class="panel"><p class="eyebrow">AI QUESTLESS STORYTELLING · PHASE 6.10</p><h2>No Quest Log. Your Choices Become the Story.</h2><p class="muted">The game watches patterns in your freely chosen actions. Repeated interest in a person, mystery, conflict, place, world event, or consequence can become an ongoing personal story thread. Nothing here is an objective, checklist, or mandatory mission.</p><div id="questlessSummary" class="rel-metrics"></div></article>
+          <article class="panel"><p class="eyebrow">AI QUESTLESS STORYTELLING · BETA 2 HOTFIX 1</p><h2>No Quest Log. Your Choices Become the Story.</h2><p class="muted">The game watches patterns in your freely chosen actions. Repeated interest in a person, mystery, conflict, place, world event, or consequence can become an ongoing personal story thread. Nothing here is an objective, checklist, or mandatory mission.</p><div id="questlessSummary" class="rel-metrics"></div></article>
           <div class="atlas-layout"><article class="panel"><h2>Threads You Are Creating</h2><div id="questlessThreads"></div></article><article class="panel"><h2>Stories That Moved On</h2><div id="questlessPast" class="event-log"></div></article></div>
         </div>
       </section>
@@ -248,7 +249,7 @@
       <section id="memoryNarrationView" class="tab-view hidden">
         <div id="noMemoryNarrationLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect remembered history.</p></div>
         <div id="memoryNarrationGame" class="hidden">
-          <article class="panel"><p class="eyebrow">MEMORY-DRIVEN AI NARRATION · PHASE 6.10</p><h2>People Remember How You Treated Them</h2><p class="muted">NPC reactions and AI narration can now draw on actual witnessed events, conversations, promises, secrets, lies, favors, fights, relationship history, rumors, and major shared moments. Knowledge remains source-aware so NPCs do not become omniscient.</p><div id="memoryNarrationSummary" class="rel-metrics"></div></article>
+          <article class="panel"><p class="eyebrow">MEMORY-DRIVEN AI NARRATION · BETA 2 HOTFIX 1</p><h2>People Remember How You Treated Them</h2><p class="muted">NPC reactions and AI narration can now draw on actual witnessed events, conversations, promises, secrets, lies, favors, fights, relationship history, rumors, and major shared moments. Knowledge remains source-aware so NPCs do not become omniscient.</p><div id="memoryNarrationSummary" class="rel-metrics"></div></article>
           <div class="atlas-layout"><article class="panel"><h2>What People Remember</h2><div id="memoryNarrationPeople"></div></article><article class="panel"><h2>Recent Memory Callbacks</h2><div id="memoryNarrationCallbacks" class="event-log"></div></article></div>
         </div>
       </section>
@@ -325,21 +326,21 @@
       <section id="generationalWorldView" class="tab-view hidden">
         <div id="noGenerationalWorldLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect their place in the changing generations.</p></div>
         <div id="generationalWorldGame" class="hidden">
-          <article class="panel"><p class="eyebrow">GENERATIONAL WORLD SIMULATION · PHASE 6.10</p><h2>The World Can Outlive a Character</h2><p class="muted">Families now accumulate occupations, reputation, stories, inheritance, descendants, and historical memory. Children can inherit family paths or choose different lives, while younger generations learn major past events as stories rather than firsthand memories.</p><div id="generationalWorldSummary" class="rel-metrics"></div></article>
+          <article class="panel"><p class="eyebrow">GENERATIONAL WORLD SIMULATION · BETA 2 HOTFIX 1</p><h2>The World Can Outlive a Character</h2><p class="muted">Families now accumulate occupations, reputation, stories, inheritance, descendants, and historical memory. Children can inherit family paths or choose different lives, while younger generations learn major past events as stories rather than firsthand memories.</p><div id="generationalWorldSummary" class="rel-metrics"></div></article>
           <div class="atlas-layout"><article class="panel"><h2>Family Legacy</h2><div id="familyLegacyPanel"></div></article><article class="panel"><h2>History People Now Remember</h2><div id="historicalMemoryPanel" class="event-log"></div></article></div>
         </div>
       </section>
       <section id="regionalEvolutionView" class="tab-view hidden">
         <div id="noRegionalEvolutionLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect how settlements are changing across the years.</p></div>
         <div id="regionalEvolutionGame" class="hidden">
-          <article class="panel"><p class="eyebrow">REGIONAL EVOLUTION & LIVING SETTLEMENTS · PHASE 6.10</p><h2>Places Change Too</h2><p class="muted">Population, prosperity, infrastructure, disasters, industries, migration, and long-term investment can now reshape settlements. Districts can appear or decline, industries can become part of local identity, damage can remain visible for years, and successful communities can slowly recover.</p><div id="regionalEvolutionSummary" class="rel-metrics"></div></article>
+          <article class="panel"><p class="eyebrow">REGIONAL EVOLUTION & LIVING SETTLEMENTS · BETA 2 HOTFIX 1</p><h2>Places Change Too</h2><p class="muted">Population, prosperity, infrastructure, disasters, industries, migration, and long-term investment can now reshape settlements. Districts can appear or decline, industries can become part of local identity, damage can remain visible for years, and successful communities can slowly recover.</p><div id="regionalEvolutionSummary" class="rel-metrics"></div></article>
           <div class="atlas-layout"><article class="panel"><h2>Current Settlement</h2><div id="settlementEvolutionPanel"></div><h3>Physical History</h3><div id="regionalEvolutionHistory" class="event-log"></div></article><article class="panel"><h2>Other Changing Settlements</h2><div id="regionalComparison"></div></article></div>
         </div>
       </section>
       <section id="culturalEvolutionView" class="tab-view hidden">
         <div id="noCulturalEvolutionLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to see how local culture is changing.</p></div>
         <div id="culturalEvolutionGame" class="hidden">
-          <article class="panel"><p class="eyebrow">CULTURE, SOCIETY & HISTORICAL CHANGE · PHASE 6.10</p><h2>An Era Is More Than a Date</h2><p class="muted">Fashion, slang, food, entertainment, traditions, attitudes toward bending, social expectations, and generational disagreements can now drift as decades pass. Economic development, technology, population, disasters, competition, spirituality, and age demographics all influence cultural change.</p><div id="culturalEvolutionSummary" class="rel-metrics"></div></article>
+          <article class="panel"><p class="eyebrow">CULTURE, SOCIETY & HISTORICAL CHANGE · BETA 2 HOTFIX 1</p><h2>An Era Is More Than a Date</h2><p class="muted">Fashion, slang, food, entertainment, traditions, attitudes toward bending, social expectations, and generational disagreements can now drift as decades pass. Economic development, technology, population, disasters, competition, spirituality, and age demographics all influence cultural change.</p><div id="culturalEvolutionSummary" class="rel-metrics"></div></article>
           <div class="atlas-layout"><article class="panel"><h2>Current Culture</h2><div id="currentCultureEvolution"></div></article><article class="panel"><h2>Recorded Cultural Shifts</h2><div id="culturalHistory" class="event-log"></div></article></div>
         </div>
       </section>
@@ -385,7 +386,7 @@
       <section id="npcAutonomyView" class="tab-view hidden">
         <div id="noNpcAutonomyLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect autonomous NPC lives.</p></div>
         <div id="npcAutonomyGame" class="hidden">
-          <article class="panel"><p class="eyebrow">NPC AUTONOMY 2.0 · PHASE 6.10</p><h2>People Keep Living When You Are Not Looking</h2><p class="muted">NPCs now choose actions from personal ambition, sociability, risk tolerance, stability, family drive, wanderlust, training drive, stress, satisfaction, money, relationships, and goals. Their lives do not wait for the player.</p><div id="npcAutonomySummary" class="rel-metrics"></div></article>
+          <article class="panel"><p class="eyebrow">NPC AUTONOMY 2.0 · BETA 2 HOTFIX 1</p><h2>People Keep Living When You Are Not Looking</h2><p class="muted">NPCs now choose actions from personal ambition, sociability, risk tolerance, stability, family drive, wanderlust, training drive, stress, satisfaction, money, relationships, and goals. Their lives do not wait for the player.</p><div id="npcAutonomySummary" class="rel-metrics"></div></article>
           <div class="atlas-layout"><article class="panel"><h2>Residents Living Their Lives</h2><div id="npcAutonomyPeople"></div></article><article class="panel"><h2>Recent Autonomous Decisions</h2><div id="npcAutonomyLog" class="event-log"></div></article></div>
         </div>
       </section>
@@ -393,7 +394,7 @@
       <section id="socialNetworkView" class="tab-view hidden">
         <div id="noSocialNetworkLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect the living social network.</p></div>
         <div id="socialNetworkGame" class="hidden">
-          <article class="panel"><p class="eyebrow">DYNAMIC RELATIONSHIP SIMULATION · PHASE 6.10</p><h2>Everybody Knows Somebody</h2><p class="muted">NPC friendships, rivalries, loyalties, workplace ties, romances, arguments, gossip, jealousy, reconciliations, alliances, feuds, and people taking sides now develop as a connected social network.</p><div id="socialNetworkSummary" class="rel-metrics"></div></article>
+          <article class="panel"><p class="eyebrow">DYNAMIC RELATIONSHIP SIMULATION · BETA 2 HOTFIX 1</p><h2>Everybody Knows Somebody</h2><p class="muted">NPC friendships, rivalries, loyalties, workplace ties, romances, arguments, gossip, jealousy, reconciliations, alliances, feuds, and people taking sides now develop as a connected social network.</p><div id="socialNetworkSummary" class="rel-metrics"></div></article>
           <div class="atlas-layout"><article class="panel"><h2>Local Social Web</h2><div id="socialNetworkPeople"></div></article><article class="panel"><h2>Social Developments</h2><div id="socialNetworkLog" class="event-log"></div></article></div>
         </div>
       </section>
@@ -512,7 +513,7 @@
       <section id="beta2View" class="tab-view hidden">
         <div id="noBeta2Life" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect Phase 6 integration health.</p></div>
         <div id="beta2Game" class="hidden">
-          <article class="panel"><p class="eyebrow">FULL SIMULATION INTEGRATION & OPTIMIZATION · PHASE 6.10</p><h2>Project Four Nations — Beta 2</h2><p class="muted">Phase 6 systems now share consequences through a unified daily/yearly integration pass. Persistent histories are bounded, Director context size is tracked, and long-world warnings surface before performance becomes unmanageable.</p><div id="beta2Summary" class="rel-metrics"></div></article>
+          <article class="panel"><p class="eyebrow">FULL SIMULATION INTEGRATION & OPTIMIZATION · BETA 2 HOTFIX 1</p><h2>Project Four Nations — Beta 2</h2><p class="muted">Phase 6 systems now share consequences through a unified daily/yearly integration pass. Persistent histories are bounded, Director context size is tracked, and long-world warnings surface before performance becomes unmanageable.</p><div id="beta2Summary" class="rel-metrics"></div></article>
           <div class="atlas-layout"><article class="panel"><h2>Integrated Systems</h2><div id="beta2Systems"></div></article><article class="panel"><h2>World Health</h2><div id="beta2Health"></div></article></div>
         </div>
       </section>
@@ -528,8 +529,8 @@
                 <label>Full name<input id="charName" maxlength="50" required placeholder="Kaito" /></label>
                 <label>Nickname<input id="charNickname" maxlength="30" placeholder="Optional" /></label>
                 <label>Age<input id="charAge" type="number" min="12" max="90" value="18" required /></label>
-                <label>Gender identity<input id="charGender" maxlength="40" placeholder="Woman, man, nonbinary..." /></label>
-                <label>Pronouns<input id="charPronouns" maxlength="30" placeholder="she/her, he/him, they/them..." /></label>
+                <label>Gender identity<input id="charGender" list="genderSuggestions" maxlength="40" placeholder="Woman, man, nonbinary..." /></label>
+                <label>Pronouns<input id="charPronouns" list="pronounSuggestions" maxlength="30" placeholder="she/her, he/him, they/them..." /></label>
                 <label>Voice style<select id="charVoice"><option>Soft-spoken</option><option>Warm</option><option>Direct</option><option>Energetic</option><option>Measured</option><option>Raspy</option><option>Formal</option></select></label>
               </div>
             </section>
@@ -537,15 +538,15 @@
             <section class="creator-step hidden" data-step="1">
               <h3>2. Appearance</h3><p class="muted">These traits become the permanent visual identity profile used by future character art.</p>
               <div class="form-grid">
-                <label>Height<input id="charHeight" maxlength="30" placeholder="5'8\" / 173 cm" /></label>
+                <label>Height<input id="charHeight" list="heightSuggestions" maxlength="30" placeholder="5'8\" / 173 cm" /></label>
                 <label>Build<select id="charBuild"><option>Average</option><option>Lean</option><option>Athletic</option><option>Broad</option><option>Muscular</option><option>Heavyset</option><option>Petite</option></select></label>
-                <label>Skin tone<input id="charSkin" maxlength="40" placeholder="Describe skin tone" /></label>
-                <label>Eye color<input id="charEyes" maxlength="30" placeholder="Brown" /></label>
-                <label>Hair color<input id="charHairColor" maxlength="30" placeholder="Black" /></label>
-                <label>Hair style<input id="charHairStyle" maxlength="60" placeholder="Long braid, shaved sides..." /></label>
-                <label>Face / features<input id="charFace" maxlength="100" placeholder="Round face, strong jaw, freckles..." /></label>
-                <label>Distinguishing marks<input id="charMarks" maxlength="120" placeholder="Scars, tattoos, birthmarks..." /></label>
-                <label>Clothing style<input id="charClothing" maxlength="120" placeholder="Will be influenced by nation and era" /></label>
+                <label>Skin tone<input id="charSkin" list="skinSuggestions" maxlength="40" placeholder="Describe skin tone" /></label>
+                <label>Eye color<input id="charEyes" list="eyeSuggestions" maxlength="30" placeholder="Brown" /></label>
+                <label>Hair color<input id="charHairColor" list="hairColorSuggestions" maxlength="30" placeholder="Black" /></label>
+                <label>Hair style<input id="charHairStyle" list="hairStyleSuggestions" maxlength="60" placeholder="Long braid, shaved sides..." /></label>
+                <label>Face / features<input id="charFace" list="faceSuggestions" maxlength="100" placeholder="Round face, strong jaw, freckles..." /></label>
+                <label>Distinguishing marks<input id="charMarks" list="markSuggestions" maxlength="120" placeholder="Scars, tattoos, birthmarks..." /></label>
+                <label>Clothing style<input id="charClothing" list="clothingSuggestions" maxlength="120" placeholder="Will be influenced by nation and era" /></label>
               </div>
             </section>
 
@@ -579,7 +580,7 @@
             </section>
 
             <section class="creator-step hidden" data-step="5">
-              <h3>6. Personality</h3><p class="muted">Choose what is true at the beginning. Your actions can change these traits over time.</p>
+              <h3>6. Personality</h3><p class="muted">Choose what is true at the beginning. Your actions can change these traits over time. The flaw list is intentionally broad—flaws are complications, not penalties to character worth.</p>
               <div class="trait-section"><h4>Choose 3–5 personality traits</h4><div id="personalityChoices" class="chip-grid"></div></div>
               <div class="trait-section"><h4>Choose 1–3 strengths</h4><div id="strengthChoices" class="chip-grid"></div></div>
               <div class="trait-section"><h4>Choose 1–3 flaws</h4><div id="flawChoices" class="chip-grid"></div></div>
@@ -588,13 +589,13 @@
             <section class="creator-step hidden" data-step="6">
               <h3>7. Goals, Relationships & History</h3><p class="muted">Your life already contains people and unfinished dreams.</p>
               <div class="form-grid two">
-                <label>Primary life goal<input id="charGoal" maxlength="120" placeholder="Open a tea house, become a healer, travel the world..." /></label>
-                <label>Private worry or fear<input id="charFear" maxlength="120" placeholder="Disappointing my family, deep water..." /></label>
+                <label>Primary life goal<input id="charGoal" list="goalSuggestions" maxlength="120" placeholder="Open a tea house, become a healer, travel the world..." /></label>
+                <label>Private worry or fear<input id="charFear" list="fearSuggestions" maxlength="120" placeholder="Disappointing my family, deep water..." /></label>
                 <label>Relationship preference<select id="charRomance"><option value="open">Romance may develop naturally</option><option value="friends-only">No romance for this character</option><option value="slow">Romance allowed, prefer slow development</option></select></label>
                 <label>Family generation<select id="charFamilyMode"><option value="generate">Generate a starting family</option><option value="small">Generate a small household</option><option value="independent">No immediate household / independent</option></select></label>
                 <label>Starting connection<select id="charStartingConnection"><option value="childhood-friend">Childhood friend</option><option value="coworker">Coworker</option><option value="neighbor">Neighbor</option><option value="former-classmate">Former classmate</option><option value="friendly-rival">Friendly rival</option><option value="mentor-contact">Older mentor contact</option></select></label>
                 <label>Starting bond<select id="charStartingBond"><option value="trusted">Trusted</option><option value="familiar">Familiar</option><option value="complicated">Complicated</option><option value="distant">Distant</option></select></label>
-                <label class="full-span">Unfinished background thread<input id="charBackgroundHook" maxlength="160" placeholder="I owe someone money, my sibling disappeared, I want to leave town, my family expects me to inherit the shop..." /></label>
+                <label class="full-span">Unfinished background thread<input id="charBackgroundHook" list="backgroundSuggestions" maxlength="160" placeholder="I owe someone money, my sibling disappeared, I want to leave town, my family expects me to inherit the shop..." /></label>
               </div>
               <div class="notice">Romance is never guaranteed or forced. NPC compatibility, attraction, shared history, preferences, and choices will matter once the relationship simulation is active.</div>
             </section>
@@ -619,7 +620,7 @@
             </section>
 
             <div class="creator-actions"><button type="button" id="creatorBackBtn">Back</button><div class="spacer"></div><button type="button" id="creatorNextBtn" class="primary">Continue</button><button type="submit" id="createCharacterBtn" class="primary hidden">Begin This Life</button></div>
-          </form>
+          <datalist id="genderSuggestions"></datalist><datalist id="pronounSuggestions"></datalist><datalist id="heightSuggestions"></datalist><datalist id="skinSuggestions"></datalist><datalist id="eyeSuggestions"></datalist><datalist id="hairColorSuggestions"></datalist><datalist id="hairStyleSuggestions"></datalist><datalist id="faceSuggestions"></datalist><datalist id="markSuggestions"></datalist><datalist id="clothingSuggestions"></datalist><datalist id="goalSuggestions"></datalist><datalist id="fearSuggestions"></datalist><datalist id="backgroundSuggestions"></datalist></form>
         </article>
       </section>
 

@@ -1,43 +1,50 @@
-# Project Four Nations — Beta 2 (Phase 6.10)
+# Project Four Nations — Beta 2 Hotfix 1
 
-Phase 6.10 integrates and optimizes all Phase 6 living-world systems.
+This hotfix addresses two major playtest blockers and improves character creation usability.
 
-## Integrated simulation
-A unified daily integration pass now lets:
-- major world events affect NPC stress/satisfaction
-- political/civic/crime events feed local gossip
-- settlement prosperity/damage affect resident wellbeing
-- cultural generation gaps affect younger residents
-- evolved settlement identity influence culture over years
-- family reputation refresh alongside long-term world evolution
+## Gameplay onboarding
+- Added a persistent **How to Play** panel to the Life screen
+- Explains that the main gameplay loop is the Freeform Action box
+- Includes example actions for looking around, talking, exploring, and checking responsibilities
+- Examples populate the action box but remain editable
+- Clarifies that suggested actions are examples rather than a limited command menu
 
-## Performance safeguards
-Persistent high-volume histories are bounded:
-- world events
-- Story Director memory/rewards
-- NPC autonomy logs
-- social events/gossip
-- questless story beats
-- shared memories/callbacks
-- major world events/history
-- generational historical memory/inheritance
-- regional/cultural history
-- everyday-event history
+## Freeform Action freeze fix
+The Freeform Action handler has been rewritten with:
+- a guaranteed `finally` unlock for the action button
+- duplicate-submit protection
+- a 25-second hard watchdog for connected narration
+- automatic local narration fallback when connected AI is slow or unavailable
+- visible generation/recovery state
+- stage-by-stage diagnostic logging
+- recovery narration if an unexpected exception occurs
+- persistent recent failure records in `hotfixState.freeformFailures`
 
-## Director performance
-The game records compact Story Director context size and recent connected-AI latency. Routine actions continue using fast-local narration where appropriate.
+The player should never need to reload the entire game because one freeform action failed.
 
-## Beta 2 Health
-A new screen shows:
-- population
-- active world events
-- open personal story threads
-- average connected-AI latency
-- average Director context size
-- integration status of all major Phase 6 systems
-- warnings for excessive NPC counts, save size, gossip volume or simultaneous events
+## Character Creator suggestions
+Custom typing remains available, but suggestion dropdowns were added for:
+- gender identity
+- pronouns
+- height
+- skin tone
+- eye color
+- hair color
+- hair style
+- facial features
+- distinguishing marks
+- clothing style
+- life goals
+- fears/worries
+- unfinished background threads
+
+## Expanded character variety
+- Personality options expanded
+- Strength options expanded
+- Flaws expanded from 12 choices to more than 50
+- Added emotional, interpersonal, practical, fear-based, pride-based, commitment, money, authority, cultural, and stress-response flaws
 
 ## Compatibility
-- Schema Version 51
-- Phase 6.9 remains in the migration chain
-- Package version 6.10.0-beta.2
+- Schema Version 52
+- Beta 2 remains in the migration chain
+- Package version 6.10.1-beta.2
