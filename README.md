@@ -1,50 +1,39 @@
-# Project Four Nations — Beta 2 Hotfix 1
+# Project Four Nations — Beta 2 Hotfix 2
 
-This hotfix addresses two major playtest blockers and improves character creation usability.
+This hotfix redesigns gameplay guidance from the ground up.
 
-## Gameplay onboarding
-- Added a persistent **How to Play** panel to the Life screen
-- Explains that the main gameplay loop is the Freeform Action box
-- Includes example actions for looking around, talking, exploring, and checking responsibilities
-- Examples populate the action box but remain editable
-- Clarifies that suggested actions are examples rather than a limited command menu
+## Guided Play
+The Life screen now begins with a persistent **Start Here · Guided Play** panel.
 
-## Freeform Action freeze fix
-The Freeform Action handler has been rewritten with:
-- a guaranteed `finally` unlock for the action button
-- duplicate-submit protection
-- a 25-second hard watchdog for connected narration
-- automatic local narration fallback when connected AI is slow or unavailable
-- visible generation/recovery state
-- stage-by-stage diagnostic logging
-- recovery narration if an unexpected exception occurs
-- persistent recent failure records in `hotfixState.freeformFailures`
+For new characters it teaches the basics one step at a time:
+1. Look around
+2. Interact with someone
+3. Do something ordinary
+4. Engage with the world
+5. Try Freeform when desired
 
-The player should never need to reload the entire game because one freeform action failed.
+Each step explains why it matters and provides a button that actually performs or opens the correct system.
 
-## Character Creator suggestions
-Custom typing remains available, but suggestion dropdowns were added for:
-- gender identity
-- pronouns
-- height
-- skin tone
-- eye color
-- hair color
-- hair style
-- facial features
-- distinguishing marks
-- clothing style
-- life goals
-- fears/worries
-- unfinished background threads
+## What Can I Do?
+A permanent menu now gives direct entry points for:
+- Talk & Relationships
+- Work & Career
+- Training
+- Explore Nearby
+- Travel
+- Events
+- Rest
+- Eat
+- Your Stories
+- Freeform Action
 
-## Expanded character variety
-- Personality options expanded
-- Strength options expanded
-- Flaws expanded from 12 choices to more than 50
-- Added emotional, interpersonal, practical, fear-based, pride-based, commitment, money, authority, cultural, and stress-response flaws
+## Freeform is no longer the default
+Freeform Action is now presented as an advanced optional tool rather than the main thing a new player must understand. The normal local actions and guided controls remain fully playable without it.
+
+## First Morning
+The main opening choice is now **Start My First Day**, which sends the player directly to Guided Play.
 
 ## Compatibility
-- Schema Version 52
-- Beta 2 remains in the migration chain
-- Package version 6.10.1-beta.2
+- Schema Version 53
+- Beta 2 Hotfix 1 remains in the migration chain
+- Package version 6.10.2-beta.2
