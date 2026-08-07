@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1f3a35" />
+  <title>Project Four Nations — Beta 1 · Phase 5.10</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">PHASE 5.10 · POSSESSIONS & HOME</p>
+        <h1>Project Four Nations</h1>
+        <p class="subtitle">Live an ordinary life in a world that keeps moving. Live your ordinary life with a freeform Game Master: type what you attempt, let the simulation resolve what is possible, and carry the consequences forward.</p>
+      </div>
+      <div class="status-pill" id="saveStatus">No world loaded</div>
+    </header>
+
+    <section id="launcher" class="panel launcher">
+      <h2>World Setup</h2>
+      <p>Create or load a persistent world. Every character created in Sprint 2.4 lives inside this same timeline.</p>
+      <div class="form-grid">
+        <label>World name<input id="worldName" maxlength="40" placeholder="My Four Nations World" /></label>
+        <label>Starting era<select id="eraSelect">
+          <option value="kyoshi">Age of Kyoshi</option><option value="roku">Age of Roku</option><option value="hundred-year-war">Hundred Year War</option><option value="aang">Avatar Aang Era</option><option value="reconstruction" selected>Reconstruction Era</option><option value="korra">Avatar Korra Era</option><option value="future">Future Avatar Era</option>
+        </select></label>
+        <label>History mode<select id="historyMode"><option value="canon">Canon Timeline</option><option value="alternate">Alternate History</option></select></label>
+      </div>
+      <div class="actions">
+        <button id="createWorldBtn" class="primary">Create World</button><button id="loadWorldBtn">Load Existing World</button><button id="exportWorldBtn" disabled>Export Save</button>
+        <label class="file-button">Import Save<input type="file" id="importWorldInput" accept="application/json,.json" /></label>
+      </div>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div class="game-toolbar"><div id="activePortraitChip" class="active-portrait-chip"></div><button class="mobile-nav-toggle" id="mobileNavToggle" type="button">Sections</button></div>
+      <nav class="tabs" aria-label="Game sections">
+        <button class="tab active" data-tab="worldView">World</button>
+        <button class="tab" data-tab="storiesView">Stories</button>
+        <button class="tab" data-tab="eventsView">Everyday Events</button>
+        <button class="tab" data-tab="emergentView">Emergent</button>
+        <button class="tab" data-tab="lifeView">Live</button>
+        <button class="tab" data-tab="charactersView">Characters</button>
+        <button class="tab" data-tab="relationshipsView">Relationships</button>
+        <button class="tab" data-tab="npcMemoryView">NPC Memory</button>
+        <button class="tab" data-tab="dialogueView">Conversations</button>
+        <button class="tab" data-tab="portraitView">Portrait Studio</button>
+        <button class="tab" data-tab="visualStoriesView">Visual Memories</button>
+        <button class="tab" data-tab="generationsView">Family & Generations</button>
+        <button class="tab" data-tab="societyView">Society</button>
+        <button class="tab" data-tab="factionsView">Factions</button>
+        <button class="tab" data-tab="economyView">Economy</button>
+        <button class="tab" data-tab="longTermView">Long-Term World</button>
+        <button class="tab" data-tab="trainingView">Training</button>
+        <button class="tab" data-tab="combatView">Combat</button>
+        <button class="tab" data-tab="spiritsView">Spirits</button>
+        <button class="tab" data-tab="travelView">Travel</button>
+        <button class="tab" data-tab="atlasView">World Atlas</button>
+        <button class="tab" data-tab="contentView">World Library</button>
+        <button class="tab" data-tab="historyView">History</button>
+        <button class="tab" data-tab="canonView">Canon Encounters</button>
+        <button class="tab" data-tab="careerView">Career</button>
+        <button class="tab" data-tab="progressionView">Progression</button>
+        <button class="tab" data-tab="inventoryView">Inventory & Home</button>
+        <button class="tab" data-tab="creatorView">Create Character</button>
+        <button class="tab" data-tab="settingsView">Settings & Saves</button>
+        <button class="tab" data-tab="betaView">Beta Diagnostics</button>
+      </nav>
+
+      <section id="worldView" class="tab-view">
+        <div class="dashboard-grid">
+          <article class="panel"><p class="eyebrow">WORLD</p><h2 id="worldTitle">—</h2><dl class="stats"><div><dt>Era</dt><dd id="eraLabel">—</dd></div><div><dt>History</dt><dd id="historyLabel">—</dd></div><div><dt>World ID</dt><dd id="worldIdLabel">—</dd></div></dl></article>
+          <article class="panel"><p class="eyebrow">TIME</p><h2 id="dateLabel">—</h2><p id="timeLabel" class="big-number">—</p><div class="actions compact"><button data-advance="1">+1 hour</button><button data-advance="6">+6 hours</button><button data-advance="24">+1 day</button></div></article>
+          <article class="panel"><p class="eyebrow">SIMULATION</p><h2>World State</h2><dl class="stats"><div><dt>Season</dt><dd id="seasonLabel">—</dd></div><div><dt>Weather</dt><dd id="weatherLabel">—</dd></div><div><dt>Active NPCs</dt><dd id="npcCountLabel">0</dd></div><div><dt>Player characters</dt><dd id="characterCountLabel">0</dd></div><div><dt>Recorded events</dt><dd id="eventCountLabel">0</dd></div></dl></article>
+        </div>
+        <div class="dashboard-grid lower">
+          <article class="panel wide"><div class="section-head"><div><p class="eyebrow">WORLD CHRONICLE</p><h2>Recent Events</h2></div><button id="addTestEventBtn">Simulate Event</button></div><div id="eventLog" class="event-log"></div></article>
+          <article class="panel"><p class="eyebrow">SPRINT 2.5</p><h2>Relationship Simulation</h2><div class="roadmap"><span>✓ Persistent hometown</span><span>✓ Walkable locations</span><span>✓ NPC daily schedules</span><span>✓ Work & daily activities</span><span>✓ Hunger, energy & morale</span><span>✓ Local money</span><span>✓ Relationship encounters</span><span>✓ Dynamic opportunities</span><span>✓ Local activity journal</span><span>✓ Relationship stages</span><span>✓ Compatibility & attraction</span><span>✓ Conflict & reconciliation</span><span>✓ Mutual romance gating</span><span>✓ Shared memory history</span></div></article>
+        </div>
+      </section>
+
+
+
+      <section id="storiesView" class="tab-view hidden">
+        <div id="noStoryLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to hear rumors and pursue living story threads.</p></div>
+        <div id="storyGame" class="hidden">
+          <article class="panel"><div class="section-head"><div><p class="eyebrow">DYNAMIC STORIES · PHASE 5.10</p><h2>Rumors & Story Threads</h2><p class="muted">Stories emerge from your life and the world. You choose what matters; ignored problems can remain unresolved.</p></div><div class="actions compact"><button id="hearRumorBtn">Listen for Rumors</button><button id="contextStoryBtn" class="primary">Find an Opportunity</button></div></div><div id="storySummary" class="rel-metrics"></div></article>
+          <div class="town-grid lower-town"><article class="panel"><p class="eyebrow">WORD OF MOUTH</p><h2>Rumors</h2><div id="rumorList" class="relationship-card-grid"></div></article><article class="panel"><p class="eyebrow">YOUR ATTENTION</p><h2>Active Threads</h2><div id="threadList" class="relationship-card-grid"></div></article></div>
+          <article class="panel"><p class="eyebrow">CHRONICLE</p><h2>Past Threads</h2><div id="storyHistory" class="event-log"></div></article>
+        </div>
+      </section>
+
+
+      <section id="emergentView" class="tab-view hidden">
+        <div id="noEmergentLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to experience emergent story arcs.</p></div>
+        <div id="emergentGame" class="hidden">
+          <article class="panel"><div class="section-head"><div><p class="eyebrow">DYNAMIC CONSEQUENCES & EMERGENT STORIES · PHASE 5.10</p><h2>The World Connects the Dots</h2><p class="muted">Story arcs now emerge from shortages, relationships, crime, faction tension, spiritual disturbances, careers, travel, and history. You may engage, exploit, negotiate, or ignore them—and the world continues either way.</p></div><button id="createEmergentArcBtn" class="primary">Generate From Current Pressure</button></div><div id="emergentSummary" class="rel-metrics"></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Active Emergent Arcs</h2><div id="emergentArcs"></div></article><article class="panel"><h2>Downstream Consequences</h2><div id="consequenceLog" class="event-log"></div></article></div>
+          <article class="panel"><p class="eyebrow">PAST STORIES</p><h2>What Became History</h2><div id="emergentHistory" class="event-log"></div></article>
+        </div>
+      </section>
+
+      <section id="lifeView" class="tab-view hidden">
+        <div id="noActiveLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Create or activate a character before entering the town.</p><button class="primary" data-open-creator>Create Character</button></div>
+        <div id="lifeGame" class="hidden">
+          <div class="life-header panel">
+            <div><p class="eyebrow">YOUR ORDINARY DAY</p><h2 id="lifeCharacterName">—</h2><p id="lifeContext" class="muted">—</p></div>
+            <div class="life-vitals" id="lifeVitals"></div>
+          </div>
+          <div class="town-grid">
+            <article class="panel town-map-panel">
+              <div class="section-head"><div><p class="eyebrow">SETTLEMENT</p><h2 id="townName">—</h2><p id="townDescription" class="muted">—</p></div><span id="currentLocationPill" class="status-pill">—</span></div>
+              <div id="townLocations" class="town-locations"></div>
+            </article>
+            <article class="panel scene-panel">
+              <p class="eyebrow">RIGHT NOW</p><h2 id="sceneLocationName">—</h2><p id="sceneDescription" class="scene-description">—</p>
+              <div id="presentNpcList" class="present-list"></div>
+              <h3>What do you do?</h3><div id="localActions" class="action-grid"></div>
+              <div class="gm-box">
+                <div class="section-head"><div><p class="eyebrow">AI STORY DIRECTOR · PHASE 5.10</p><h3>Attempt anything reasonable</h3></div><span class="status-pill">Freeform GM</span></div>
+                <p class="muted">Describe your action in your own words. The simulation resolves your attempt first. The Story Director then narrates it using your location, relationships, NPC knowledge, rumors, factions, economy, spirituality, training, recent history, and current world conditions.</p>
+                <textarea id="gmActionInput" rows="4" maxlength="700" placeholder="Example: I crouch a few feet from the frightened animal, place some food on the ground, and wait without staring at it."></textarea>
+                <div class="gm-controls"><button id="gmSubmitBtn" class="primary">Attempt Action</button><small class="muted">Ctrl/⌘ + Enter</small></div>
+                <details class="gm-settings"><summary>Game Master narration settings</summary><div class="form-grid two"><label>Mode<select id="gmMode"><option value="local">Local simulation narrator</option><option value="connected">Connected AI endpoint</option></select></label><label>Endpoint<input id="gmEndpoint" value="/api/gm" placeholder="/api/gm" /></label></div><p class="muted">Connected mode expects a server-side endpoint. API secrets should never be stored in this browser app.</p></details>
+                <h4>Developing Story Threads</h4><div id="directorThreads" class="event-log"></div><h4>Recent Freeform Actions</h4><div id="gmHistory" class="gm-history"></div>
+              </div>
+            </article>
+          </div>
+          <div class="town-grid lower-town">
+            <article class="panel"><div class="section-head"><div><p class="eyebrow">PEOPLE NEARBY</p><h2>Relationships</h2></div></div><div id="townRelationships" class="relationship-list"></div></article>
+            <article class="panel"><div class="section-head"><div><p class="eyebrow">LOCAL THREADS</p><h2>Opportunities</h2></div><button id="refreshOpportunityBtn">Listen for Rumors</button></div><div id="opportunityList" class="opportunity-list"></div></article>
+          </div>
+          <article class="panel town-journal-panel"><div class="section-head"><div><p class="eyebrow">TODAY'S JOURNAL</p><h2>Recent Activity</h2></div></div><div id="lifeLog" class="event-log"></div></article>
+        </div>
+      </section>
+
+
+
+      <section id="careerView" class="tab-view hidden">
+        <div id="noCareerLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to develop a profession or business.</p></div>
+        <div id="careerGame" class="hidden">
+          <article class="panel"><div class="section-head"><div><p class="eyebrow">PROFESSIONS · PHASE 5.10</p><h2 id="careerTitle">Career</h2><p class="muted">Work, learn a trade, earn promotions, or build a local business. None of these paths require becoming a hero.</p></div></div><div id="careerSummary" class="rel-metrics"></div><div id="careerActions" class="actions"></div></article>
+          <div class="town-grid lower-town"><article class="panel"><p class="eyebrow">CAREER LADDER</p><h2>Professional Growth</h2><div id="careerRanks" class="career-ranks"></div></article><article class="panel"><p class="eyebrow">START SOMETHING</p><h2>Local Business Options</h2><div id="businessMarket" class="shop-grid"></div></article></div>
+          <article class="panel"><p class="eyebrow">OWNERSHIP</p><h2>Your Businesses</h2><div id="businessList" class="relationship-card-grid"></div></article>
+          <article class="panel"><p class="eyebrow">WORKING LIFE</p><h2>Career History</h2><div id="careerHistory" class="event-log"></div></article>
+        </div>
+      </section>
+
+      <section id="relationshipsView" class="tab-view hidden">
+        <div id="noRelationshipLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to view their social world.</p></div>
+        <div id="relationshipGame" class="hidden">
+          <article class="panel"><div class="section-head"><div><p class="eyebrow">SOCIAL LIFE · SPRINT 2.5</p><h2>Relationships</h2><p class="muted">Friendship, family, rivalry and romance develop through history, compatibility and mutual choices.</p></div><div id="relationshipSummary" class="muted"></div></div></article>
+          <div id="relationshipCards" class="relationship-card-grid"></div>
+        </div>
+                <article class="panel"><p class="eyebrow">RELATIONSHIP LIFE</p><h2>Developments Without You</h2><p class="muted">NPCs can develop interest, grow distant, or end strained relationships without waiting for the player to press a button.</p><div id="relationshipSimulationLog" class="event-log"></div></article>
+</section>
+
+
+      <section id="npcMemoryView" class="tab-view hidden">
+        <div id="noNpcMemoryLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect the social memory system.</p></div>
+        <div id="npcMemoryGame" class="hidden">
+          <article class="panel"><p class="eyebrow">NPC MEMORY & ADVANCED AI DIALOGUE · PHASE 5.10</p><h2>People Know What They Know</h2><p class="muted">NPCs now build personal memories from conversations, witnessed actions, promises, secrets, suspected lies, and information shared by other people. AI dialogue receives that individual's knowledge instead of unrestricted world knowledge.</p></article>
+          <div class="atlas-layout"><article class="panel"><h2>People & Their Memories</h2><div id="npcMemoryCards" class="memory-grid"></div></article><article class="panel"><h2>Conversation Record</h2><div id="conversationMemoryLog" class="event-log"></div></article></div>
+        </div>
+      </section>
+
+      <section id="portraitView" class="tab-view hidden">
+        <div id="noPortraitLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to build consistent visual identities.</p></div>
+        <div id="portraitGame" class="hidden">
+          <article class="panel"><p class="eyebrow">PROCEDURAL CHARACTERS & PORTRAIT ART · PHASE 5.10</p><h2>A Face the World Can Remember</h2><p class="muted">Characters now receive persistent visual identity profiles. These profiles produce reusable art-generation prompts so future portrait and story artwork can preserve the same face, hair, build, clothing logic, scars, and accessories.</p></article>
+          <article class="panel"><h2>Portrait Studio</h2><div id="portraitCards" class="portrait-grid"></div></article>
+        </div>
+      </section>
+
+      <section id="visualStoriesView" class="tab-view hidden">
+        <div id="noVisualStoriesLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to build their illustrated memory archive.</p></div>
+        <div id="visualStoriesGame" class="hidden">
+          <article class="panel"><p class="eyebrow">DYNAMIC EVENTS & VISUAL STORY MOMENTS · PHASE 5.10</p><h2>Your Life Becomes an Illustrated Chronicle</h2><p class="muted">Important life events are now identified as visual memories. Battles, relationships, family milestones, spirit encounters, festivals, discoveries, journeys, and brushes with history can produce reusable scene-generation prompts built from the characters' locked visual identities.</p><div id="visualMomentSummary" class="rel-metrics"></div><div class="actions"><button id="createVisualMomentBtn">Create Visual Memory Manually</button></div></article>
+          <article class="panel"><h2>Visual Memory Archive</h2><div id="visualMomentCards" class="visual-moment-grid"></div></article>
+        </div>
+      </section>
+
+      <section id="dialogueView" class="tab-view hidden">
+        <div id="noDialogueLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character before starting conversations.</p></div>
+        <div id="dialogueGame" class="hidden">
+          <article class="panel"><p class="eyebrow">ADVANCED NPC DIALOGUE · PHASE 5.10</p><h2>Conversation Is a Relationship</h2><p class="muted">Talk continuously with one person. They answer from their own memories and knowledge, can refuse, ask questions back, remember promises and secrets, react emotionally, and carry the conversation into future encounters.</p></article>
+          <div id="dialogueStart"><article class="panel"><h2>People Here</h2><div id="dialoguePeople"></div></article></div>
+          <div id="dialogueSession" class="hidden">
+            <div class="dialogue-layout">
+              <article class="panel dialogue-main">
+                <div class="section-head"><div id="dialogueNpcHeader"></div><button id="dialogueEndBtn">End Conversation</button></div>
+                <div id="dialogueTranscript" class="dialogue-transcript"></div>
+                <div class="dialogue-topics"><button data-dialogue-topic="work">Work</button><button data-dialogue-topic="family">Family</button><button data-dialogue-topic="rumors">Rumors</button><button data-dialogue-topic="spirits">Spirits</button><button data-dialogue-topic="travel">Travel</button><button data-dialogue-topic="bending">Bending</button><button data-dialogue-topic="relationship">Us</button></div>
+                <textarea id="dialogueInput" rows="3" maxlength="900" placeholder="Say anything to them..."></textarea>
+                <div class="gm-controls"><button id="dialogueSendBtn" class="primary">Speak</button><small class="muted">Ctrl/⌘ + Enter</small></div>
+              </article>
+              <aside class="panel"><p class="eyebrow">CONVERSATION CONTEXT</p><h3>What Is Shaping This Talk</h3><div id="dialogueContext"></div><p class="muted">This panel summarizes simulation state for development. The NPC still cannot see information they do not personally know.</p></aside>
+            </div>
+          </div>
+          <article class="panel"><p class="eyebrow">CONVERSATION HISTORY</p><h2>Previous Talks</h2><div id="dialogueHistory" class="event-log"></div></article>
+        </div>
+      </section>
+
+      <section id="eventsView" class="tab-view hidden">
+        <div id="noEventsLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to experience everyday events.</p></div>
+        <div id="eventsGame" class="hidden">
+          <article class="panel"><p class="eyebrow">EVENTS, FESTIVALS & EVERYDAY LIFE · PHASE 5.10</p><h2>Not Every Story Is a Quest</h2><p class="muted">Birthdays, markets, family meals, local celebrations, work trouble, storms, weddings, funerals, tournaments, debates, illnesses, travelers, and neighborhood problems can now happen around you. You can attend, help, skip them, or simply let them pass.</p><div id="eventsSummary" class="rel-metrics"></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Happening Now</h2><div id="activeEverydayEvents"></div></article><article class="panel"><h2>Recent Local Life</h2><div id="pastEverydayEvents" class="event-log"></div></article></div>
+        </div>
+      </section>
+
+      <section id="progressionView" class="tab-view hidden">
+        <div id="noProgressionLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect progression balance.</p></div>
+        <div id="progressionGame" class="hidden">
+          <article class="panel"><div class="section-head"><div><p class="eyebrow">PROGRESSION, REWARDS & REPLAYABILITY · PHASE 5.10</p><h2>A Life Should Grow, Not Grind</h2><p class="muted">Progression now uses softer long-term curves, same-day diminishing returns, recurring living costs, more restrained business profits, and slower high-rank career advancement.</p></div><label>Pacing<select id="progressionProfile"><option value="standard">Standard</option><option value="relaxed">Relaxed</option><option value="slowLife">Slow Life</option></select></label></div><div id="progressionSummary" class="rel-metrics"></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Current Balance</h2><div id="progressionBreakdown"></div></article><article class="panel"><h2>Monthly Cost History</h2><div id="balanceLog" class="event-log"></div></article></div>
+        </div>
+      </section>
+
+      <section id="trainingView" class="tab-view hidden">
+        <div id="noTrainingLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character before beginning training.</p></div>
+        <div id="trainingGame" class="hidden">
+          <article class="panel"><div class="section-head"><div><p class="eyebrow">ADVANCED BENDING & MARTIAL ARTS · PHASE 5.10</p><h2 id="trainingTitle">Bending & Disciplines</h2><p class="muted">Practice builds foundations. Teachers unlock knowledge. Advanced techniques require prerequisites, experience, and the right circumstances.</p></div><span id="trainingMasteryPill" class="status-pill">—</span></div></article>
+          <div class="training-grid">
+            <article class="panel"><p class="eyebrow">PROGRESSION</p><h2>Mastery</h2><div id="trainingProgress"></div><div class="actions"><button id="practiceFundamentalsBtn" class="primary">Practice Fundamentals</button><button id="conditioningBtn">Conditioning</button><button id="studyBtn">Study Technique</button></div></article>
+            <article class="panel"><p class="eyebrow">KNOWN TECHNIQUES</p><h2>Your Repertoire</h2><div id="knownTechniques" class="technique-list"></div></article>
+          </div>
+          <article class="panel"><div class="section-head"><div><p class="eyebrow">TRAINING PATH</p><h2>Techniques & Specializations</h2></div></div><div id="techniqueTree" class="technique-grid"></div></article>
+          <article class="panel"><div class="section-head"><div><p class="eyebrow">TEACHERS</p><h2>People Who Can Teach You</h2><p class="muted">Some techniques cannot be learned by grinding alone. A willing teacher, scroll, school, or major discovery may be required.</p></div></div><div id="teacherList" class="relationship-list"></div></article>
+          <article class="panel"><p class="eyebrow">PERSONAL STYLE</p><h2>How You Fight</h2><p class="muted">Repeated practice shapes a personal approach. Expert characters can formalize original signature techniques from abilities they actually know.</p><div id="styleProfile"></div></article>
+          <article class="panel"><p class="eyebrow">TRAINING JOURNAL</p><h2>Recent Growth</h2><div id="trainingJournal" class="event-log"></div></article>
+        </div>
+      </section>
+
+
+
+      <section id="combatView" class="tab-view hidden">
+        <div id="noCombatLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character before entering combat.</p></div>
+        <div id="combatGame" class="hidden">
+          <article class="panel"><p class="eyebrow">COMBAT 2.0 · PHASE 5.10</p><h2>Elemental Tactical Conflict</h2><p class="muted">Teams, range, positioning, environmental resources, cover, stamina, statuses, restraint, capture, surrender, escape, and combat intent now shape fights. Bending is strongest when the battlefield actually supports it.</p></article>
+          <div id="combatSetup"><article class="panel"><h2>People Nearby</h2><p class="muted">Spar safely, duel formally, risk a dangerous fight, or start a team skirmish that can pull trusted allies and additional opponents into the encounter.</p><div id="combatOpponents"></div></article></div>
+          <div id="combatActive" class="hidden">
+            <article class="panel">
+              <div class="section-head"><div><p id="combatRound" class="eyebrow"></p><h2>Active Encounter</h2><p id="combatTerrain" class="muted"></p></div></div>
+              <div class="combat-control-grid">
+                <label>Intent<select id="combatIntent"><option value="nonlethal">Nonlethal</option><option value="dangerous">Dangerous</option><option value="lethal">Lethal</option></select></label>
+                <label>Target<select id="combatTargetSelect"></select></label>
+              </div>
+              <div class="actions combat-maneuvers"><button id="combatCloserBtn">Move Closer</button><button id="combatFartherBtn">Move Farther</button><button id="combatCoverBtn">Take Cover</button><button id="combatRecoverBtn">Guard & Recover</button><button id="combatCaptureBtn">Capture / Secure</button><button id="combatEscapeBtn">Escape</button><button id="combatSurrenderBtn">Surrender</button></div>
+            </article>
+            <article class="panel"><p class="eyebrow">BATTLEFIELD</p><h2>Combatants</h2><div id="combatantsBoard" class="combatants-board"></div></article>
+            <div class="atlas-layout"><article class="panel"><h2>Techniques</h2><div id="combatTechniques"></div></article><article class="panel"><h2>Round Log</h2><div id="combatLog" class="event-log"></div></article></div>
+          </div>
+          <article class="panel"><p class="eyebrow">RECORD</p><h2>Past Conflicts</h2><div id="combatHistory" class="event-log"></div></article>
+        </div>
+      </section>
+
+      <section id="spiritsView" class="tab-view hidden">
+        <div id="noSpiritsLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to explore their spiritual life.</p></div>
+        <div id="spiritsGame" class="hidden">
+          <article class="panel"><p class="eyebrow">SPIRITS & SPIRITUALITY · PHASE 5.10</p><h2>Between Two Worlds</h2><p class="muted">Spirits are not ordinary quest NPCs. They have domains, moods, memories, boundaries, and reasons that may not align with human priorities.</p><div id="spiritStats" class="rel-metrics"></div><div class="actions"><button id="meditateBtn">Meditate · 2h</button><button id="spiritWorldBtn">Attempt Spirit World Journey</button><button id="disturbanceBtn">Seed Test Disturbance</button></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Known Spirits</h2><div id="knownSpirits"></div></article><article class="panel"><h2>Local Disturbances</h2><div id="spiritDisturbances"></div></article></div>
+          <article class="panel"><p class="eyebrow">SPIRITUAL MEMORY</p><h2>Experiences</h2><div id="spiritMemories" class="event-log"></div></article>
+        </div>
+      </section>
+
+      <section id="travelView" class="tab-view hidden">
+        <div id="noTravelLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character before planning a journey.</p></div>
+        <div id="travelGame" class="hidden">
+          <article class="panel"><div class="section-head"><div><p class="eyebrow">REAL MAP & LOCATION NAVIGATION · PHASE 5.10</p><h2 id="travelRegionTitle">World & Regional Navigation</h2><p class="muted" id="travelRegionContext"></p></div><span id="travelLocationPill" class="status-pill">—</span></div></article>
+          <article class="panel map-panel"><div class="section-head"><div><p class="eyebrow">WORLD ROUTES</p><h2>Schematic Travel Map</h2></div></div><div id="worldMap" class="world-map"></div><div id="mapSelection" class="map-selection"></div></article>
+          <div class="travel-grid">
+            <article class="panel"><p class="eyebrow">DIRECT ROUTES</p><h2>From Here</h2><div id="destinationList" class="destination-list"></div></article>
+            <article class="panel"><p class="eyebrow">JOURNEY CONDITIONS</p><h2>Travel Planning</h2><div id="journeySummary"></div><div id="travelLog" class="event-log"></div></article>
+          </div>
+          <article class="panel"><div class="section-head"><div><p class="eyebrow">LOCAL NAVIGATION</p><h2 id="localMapTitle">Settlement districts</h2></div></div><div class="local-map-layout"><div id="localMap" class="local-map"></div><aside id="localPlaceDetail" class="local-place-detail"></aside></div></article>
+        </div>
+      </section>
+
+
+      <section id="atlasView" class="tab-view hidden">
+        <div id="noAtlasLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to explore their cultural world.</p></div>
+        <div id="atlasGame" class="hidden">
+          <article class="panel"><p class="eyebrow">WORLD MAP & EXPLORATION · PHASE 5.10</p><h2>World Atlas</h2><p id="atlasContext" class="muted"></p></article>
+          <div class="atlas-layout"><article id="currentCulture" class="panel"></article><article class="panel"><p class="eyebrow">FOUNDATIONAL REGIONS</p><h2>Era-Available Places</h2><div id="atlasRegions"></div></article></div>
+        </div>
+      </section>
+
+
+      <section id="canonView" class="tab-view hidden">
+        <div id="noCanonLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to see how their life intersects with history.</p></div>
+        <div id="canonGame" class="hidden">
+          <article class="panel"><p class="eyebrow">CANON CHARACTERS & HISTORICAL ENCOUNTERS · PHASE 5.10</p><h2>You Live Beside History</h2><p class="muted">Era-appropriate famous figures can cross your path, but fame does not make them automatically know, trust, recruit, or befriend you. Most encounters are glimpses, public events, professional crossings, or brief conversations.</p></article>
+          <div class="atlas-layout"><article class="panel"><h2>Figures Active in This Era</h2><div id="canonFigures" class="canon-grid"></div></article><article class="panel"><h2>Your Brushes With History</h2><div id="canonEncounterLog" class="event-log"></div></article></div>
+        </div>
+      </section>
+
+      <section id="contentView" class="tab-view hidden">
+        <div id="noContentLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to browse content relevant to their culture and era.</p></div>
+        <div id="contentGame" class="hidden">
+          <article class="panel"><p class="eyebrow">CONTENT DATABASE EXPANSION · PHASE 5.10</p><h2>The World Has More to Live In</h2><p class="muted">The simulation now has a larger structured content library for regional wildlife, food, occupations, bending and martial techniques, transportation, festivals, laws, clothing, and hometown options. The library filters itself around your current culture, bending path, and era.</p><div id="contentSummary" class="rel-metrics"></div></article>
+          <div id="contentLibrary" class="content-library"></div>
+        </div>
+      </section>
+
+      <section id="historyView" class="tab-view hidden">
+        <article class="panel"><div class="section-head"><div><p class="eyebrow">ERA & HISTORICAL SIMULATION · PHASE 5.10</p><h2>Living History</h2><p id="historyCurrentDate" class="muted"></p></div><span id="historyModePill" class="status-pill">—</span></div><p id="historyContext"></p></article>
+        <div class="atlas-layout"><article class="panel"><p class="eyebrow">ERA TIMELINE</p><h2>Historical Thresholds</h2><div id="historyTimeline"></div></article><article class="panel"><p class="eyebrow">WORLD RECORD</p><h2>What Has Happened</h2><div id="historicalLog" class="event-log"></div></article></div>
+      </section>
+
+
+
+      <section id="generationsView" class="tab-view hidden">
+        <div id="noGenerationLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a living character to view their household and legacy.</p></div>
+        <div id="generationGame" class="hidden">
+          <article class="panel"><p class="eyebrow">AGING, FAMILY & GENERATIONS · PHASE 5.10</p><h2>A Life Can Become a Lineage</h2><p class="muted">Years now matter to playable characters. Households can form, adult partners can commit, children can grow up, wealth can pass to heirs, and the same world can continue through later generations.</p><div id="generationSummary" class="rel-metrics"></div><div class="actions"><button id="growFamilyBtn">Grow the Household</button></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Household</h2><div id="householdList"></div><h3>Partnership</h3><div id="partnerOptions"></div></article><article class="panel"><h2>Family Tree</h2><div id="familyTree"></div></article></div>
+          <article class="panel"><p class="eyebrow">LEGACY</p><h2>Inheritance Chronicle</h2><div id="legacyLog" class="event-log"></div></article>
+        </div>
+      </section>
+
+      <section id="societyView" class="tab-view hidden">
+        <article class="panel"><p class="eyebrow">ADVANCED NPC LIFE SIMULATION · PHASE 5.10</p><h2>Living Society</h2><p class="muted">Residents work, socialize, pursue goals, move, form relationships, raise children, age, and eventually die whether or not the player is watching.</p><div id="societySummary" class="rel-metrics"></div></article>
+        <div class="atlas-layout"><article class="panel"><p class="eyebrow">POPULATION</p><h2>Settlements</h2><div id="societySettlements"></div></article><article class="panel"><p class="eyebrow">INDIVIDUAL LIVES</p><h2>Residents</h2><div id="npcLives"></div></article></div>
+        <article class="panel"><p class="eyebrow">SOCIETY CHRONICLE</p><h2>Lives Moving Without You</h2><div id="societyLog" class="event-log"></div></article>
+      </section>
+
+
+      <section id="factionsView" class="tab-view hidden">
+        <div id="noFactionsLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to interact with institutions and local power.</p></div>
+        <div id="factionsGame" class="hidden">
+          <article class="panel"><p class="eyebrow">FACTIONS, POLITICS & CRIME · PHASE 5.10</p><h2>Power Has a Local Address</h2><p class="muted">Governments, guards, merchants, schools, and criminal networks have their own interests. Reputation with one does not automatically transfer to another.</p><div id="politicsSummary" class="rel-metrics"></div><div class="actions"><button id="authorityBtn">Face Local Authorities</button><button id="testCrimeBtn">Seed Test Theft</button></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Local Organizations</h2><div id="localFactions"></div></article><article class="panel"><h2>Legal Incidents</h2><div id="legalHistory" class="event-log"></div></article></div>
+          <article class="panel"><p class="eyebrow">POLITICAL WEATHER</p><h2>Organizations Acting Without You</h2><div id="politicalLog" class="event-log"></div></article>
+        </div>
+      </section>
+
+
+      <section id="economyView" class="tab-view hidden">
+        <div id="noEconomyLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to participate in the living economy.</p></div>
+        <div id="economyGame" class="hidden">
+          <article class="panel"><p class="eyebrow">DEEP ECONOMY & LIVING SETTLEMENTS · PHASE 5.10</p><h2>People Have to Eat</h2><p class="muted">Settlements consume goods, trade with neighbors, suffer shortages, rebuild damage, and gradually prosper or decline. Your character participates in that economy instead of carrying an isolated wallet.</p><div id="economySummary" class="rel-metrics"></div><div class="actions"><button id="rentHomeBtn">Rent Local Home</button><button id="openBusinessBtn">Open Small Business · 25</button><button id="publicProjectBtn">Fund Public Work · 8</button><button id="damageEconomyBtn">Seed Test Damage</button></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Local Market</h2><div id="marketGoods"></div></article><article class="panel"><h2>Local Conditions</h2><div id="economyConditions"></div><h3>Your Property</h3><div id="propertyList"></div></article></div>
+          <div class="atlas-layout"><article class="panel"><h2>Your Businesses</h2><div id="businessList"></div></article><article class="panel"><h2>Economic Chronicle</h2><div id="economyLog" class="event-log"></div></article></div>
+        </div>
+      </section>
+
+      <section id="longTermView" class="tab-view hidden">
+        <div id="noLongTermLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to inspect long-term world change.</p></div>
+        <div id="longTermGame" class="hidden">
+          <article class="panel"><p class="eyebrow">LONG-TERM WORLD SIMULATION · PHASE 5.10</p><h2>Decades Change Places, Not Just People</h2><p class="muted">Settlements now grow or decline, damage is rebuilt, careers change, businesses rise and fail, people migrate toward opportunity, and faction leadership turns over as years pass.</p><div id="longTermSummary" class="rel-metrics"></div></article>
+          <div class="atlas-layout"><article class="panel"><h2>Settlement Evolution</h2><div id="longTermSettlements"></div></article><article class="panel"><h2>Leadership Turnover</h2><div id="leadershipHistory" class="event-log"></div></article></div>
+          <article class="panel"><p class="eyebrow">DECADE CHRONICLE</p><h2>Generational World Changes</h2><div id="decadeHistory" class="event-log"></div></article>
+        </div>
+      </section>
+
+
+      <section id="settingsView" class="tab-view hidden">
+        <article class="panel"><p class="eyebrow">UI, SAVE SYSTEM & IMMERSION · PHASE 5.10</p><h2>Game Settings</h2><p class="muted">Tune presentation and story intensity without changing the underlying world simulation.</p>
+          <div class="form-grid two">
+            <label>Combat intensity<select id="combatIntensitySetting" data-ui-setting="combatIntensity"><option value="light">Light</option><option value="standard">Standard</option><option value="brutal">Brutal</option></select></label>
+            <label>Relationship tone<select id="relationshipToneSetting" data-ui-setting="relationshipTone"><option value="teen">Teen</option><option value="mature">Mature</option></select></label>
+            <label>Language<select id="languageSetting" data-ui-setting="language"><option value="clean">Clean</option><option value="moderate">Moderate</option><option value="strong">Strong</option></select></label>
+            <label>Romance<select id="romanceSetting" data-ui-setting="romance"><option value="off">Off</option><option value="light">Light</option><option value="mature">Mature</option></select></label>
+          </div>
+          <div class="setting-checks">
+            <label><input type="checkbox" id="permanentInjurySetting" data-ui-setting="permanentInjury"> Permanent injuries</label>
+            <label><input type="checkbox" id="characterDeathSetting" data-ui-setting="characterDeath"> Character death</label>
+            <label><input type="checkbox" id="reducedMotionSetting" data-ui-setting="reducedMotion"> Reduced motion</label>
+            <label><input type="checkbox" id="largeTextSetting" data-ui-setting="largeText"> Larger text</label>
+            <label><input type="checkbox" id="atmosphereSetting" data-ui-setting="atmosphere"> Atmospheric presentation</label>
+            <label><input type="checkbox" id="compactNavSetting" data-ui-setting="compactNav"> Compact navigation</label>
+          </div>
+          <p class="muted">Adult romance remains non-explicit regardless of tone. Under-18 characters remain excluded from adult romantic/intimate mechanics.</p>
+        </article>
+                <article class="panel">
+          <div class="section-head"><div><p class="eyebrow">SECURE AI NARRATOR · PHASE 5.10</p><h2>Story Director Connection</h2><p class="muted">The browser sends only resolved, bounded simulation context to your own server. Provider credentials stay on the server and are never stored in the world save.</p></div><span id="aiConnectionStatus" class="status-pill">Not checked</span></div>
+          <div class="form-grid two">
+            <label>Narration mode<select id="aiSettingsMode"><option value="local">Local fallback only</option><option value="connected">Connected AI with local fallback</option></select></label>
+            <label>Server endpoint<input id="aiSettingsEndpoint" value="/api/gm" placeholder="/api/gm"></label>
+            <label>Request timeout (ms)<input id="gmTimeout" type="number" min="5000" max="60000" step="1000" value="30000"></label>
+          </div>
+          <div class="actions"><button id="saveAiSettingsBtn">Save AI Settings</button><button id="checkAiConnectionBtn">Check Connection</button></div>
+          <p id="aiConnectionDetails" class="muted"></p>
+          <p class="muted">Never paste an API key into the browser. Configure provider credentials only in the server environment.</p>
+        </article>
+        <article class="panel">
+          <div class="section-head"><div><p class="eyebrow">IN-APP ART GENERATION · PHASE 5.10</p><h2>Portrait & Visual Memory Art</h2><p class="muted">Portraits and story scenes are generated through the secure server. Generated files are stored server-side and world saves keep only asset paths.</p></div><span id="imageConnectionStatus" class="status-pill">Not checked</span></div>
+          <div class="actions"><button id="checkImageConnectionBtn">Check Image Connection</button></div>
+          <p id="imageConnectionDetails" class="muted"></p>
+          <p class="muted">When a Visual Memory includes characters who already have generated portraits, those portraits are sent back to the image service as references to improve identity consistency.</p>
+        </article>
+
+<article class="panel"><div class="section-head"><div><p class="eyebrow">INTEGRATED ALPHA · PHASE 5.10</p><h2>System Health Audit</h2><p id="alphaAuditSummary" class="muted">Run the integration checks.</p></div><div class="actions compact"><button id="runAlphaAuditBtn">Run Audit</button><button id="alphaYearTestBtn">Advance 1 Test Year</button></div></div><div id="alphaAuditResults" class="audit-grid"></div></article><div class="atlas-layout"><article class="panel"><div class="section-head"><div><p class="eyebrow">SAVE SLOTS</p><h2>World Saves</h2></div><button id="saveAsSlotBtn">Save As New Slot</button></div><div id="saveSlotList"></div></article><article class="panel"><p class="eyebrow">IMMERSION HOOKS</p><h2>Atmosphere</h2><p>Atmosphere mode enables subtle presentation hooks for future region-specific ambient audio, weather layers, and visual ambience without requiring them yet.</p><p class="muted">No audio files or external media are bundled in this sprint.</p></article></div>
+      </section>
+
+      <section id="charactersView" class="tab-view hidden">
+        <article class="panel">
+          <div class="section-head"><div><p class="eyebrow">PEOPLE OF THIS WORLD</p><h2>Player Characters</h2><p class="muted">Characters remain in the world record even when another life becomes active.</p></div><button class="primary" data-open-creator>Create Character</button></div>
+          <div id="characterList" class="character-grid"></div>
+        </article>
+        <article id="characterDetail" class="panel detail-panel hidden"></article>
+      </section>
+
+      <section id="inventoryView" class="tab-view hidden">
+        <div id="noInventoryLife" class="panel empty-state hidden"><h2>No active life yet</h2><p>Activate a character to manage possessions and housing.</p></div>
+        <div id="inventoryGame" class="hidden">
+          <article class="panel"><div class="section-head"><div><p class="eyebrow">PHASE 5.10 · POSSESSIONS & HOME</p><h2>Inventory, Equipment & Housing</h2><p class="muted">Carry what matters, buy what you can afford, and build a life wherever the road takes you.</p></div><span id="inventoryCoinPill" class="status-pill">0 ◈</span></div></article>
+          <div class="inventory-grid">
+            <article class="panel"><p class="eyebrow">WHAT YOU CARRY</p><h2>Inventory</h2><div id="inventoryList"></div></article>
+            <article class="panel"><p class="eyebrow">EQUIPPED</p><h2>Clothing & Gear</h2><div id="equipmentList"></div></article>
+          </div>
+          <div class="inventory-grid">
+            <article class="panel"><div class="section-head"><div><p class="eyebrow">LOCAL MARKET</p><h2 id="shopTitle">Shops</h2></div></div><div id="shopList" class="shop-grid"></div></article>
+            <article class="panel"><div class="section-head"><div><p class="eyebrow">A PLACE TO STAY</p><h2>Housing & Lodging</h2></div></div><div id="housingPanel"></div></article>
+          </div>
+          <article class="panel"><p class="eyebrow">OWNERSHIP JOURNAL</p><h2>Recent Changes</h2><div id="ownershipLog" class="event-log"></div></article>
+        </div>
+      </section>
+
+      <section id="firstDayView" class="tab-view hidden">
+        <article class="panel first-day-hero">
+          <p class="eyebrow">WELCOME TO YOUR LIFE · PHASE 5.10</p>
+          <h2 id="firstDayTitle">Your First Morning</h2>
+          <p id="firstDayIntro" class="first-day-intro"></p>
+        </article>
+        <div class="onboarding-grid">
+          <article class="panel"><h2>Who You Are Today</h2><div id="firstDayCharacter"></div></article>
+          <article class="panel"><h2>Already Part of Your Life</h2><div id="firstDayThreads"></div></article>
+        </div>
+        <article class="panel"><p class="eyebrow">WHERE DO YOU BEGIN?</p><h2>Your first choice is ordinary on purpose</h2><p class="muted">You can work, find someone you know, explore town, or see what is happening nearby. Bigger stories can emerge from there.</p><div id="firstDayChoices" class="first-day-choices"></div></article>
+      </section>
+
+      <section id="betaView" class="tab-view hidden">
+        <article class="panel"><div class="section-head"><div><p class="eyebrow">PLAYABLE BETA · PHASE 5.10</p><h2>Beta Diagnostics & Recovery</h2><p class="muted">Check the persistent world graph before long play sessions and use recovery tools without deleting a healthy world.</p></div><span id="betaStatus" class="status-pill">Not checked</span></div><div class="actions"><button id="runBetaCheckBtn" class="primary">Run Integrity Check</button><button id="downloadBetaBackupBtn">Download World Backup</button><button id="repairBetaBtn">Repair Safe References</button></div></article>
+        <article class="panel"><h2>World Health</h2><div id="betaDiagnostics"></div></article>
+        <article class="panel"><p class="eyebrow">BETA 1 TEST TARGETS</p><h2>Connected systems ready for play testing</h2><div class="beta-test-grid"><div>New world → creator → first morning</div><div>Freeform AI actions & dialogue</div><div>Relationships, romance & generations</div><div>Bending training & combat</div><div>Jobs, businesses & economy</div><div>Travel, maps & discovery</div><div>Everyday & emergent events</div><div>Portrait & Visual Memory art</div><div>Multi-year saves & migration</div></div></article>
+      </section>
+
+      <section id="creatorView" class="tab-view hidden">
+        <article class="panel creator-shell">
+          <div class="section-head"><div><p class="eyebrow">CREATE A LIFE</p><h2>Character Creator</h2><p class="muted" id="creatorWorldContext"></p></div><button id="randomizeCharacterBtn">Surprise Me</button></div>
+          <div class="stepper" id="creatorStepper"></div>
+
+          <form id="characterForm">
+            <section class="creator-step" data-step="0">
+              <h3>1. Identity</h3><p class="muted">Who are you before adventure ever finds you?</p>
+              <div class="form-grid">
+                <label>Full name<input id="charName" maxlength="50" required placeholder="Kaito" /></label>
+                <label>Nickname<input id="charNickname" maxlength="30" placeholder="Optional" /></label>
+                <label>Age<input id="charAge" type="number" min="12" max="90" value="18" required /></label>
+                <label>Gender identity<input id="charGender" maxlength="40" placeholder="Woman, man, nonbinary..." /></label>
+                <label>Pronouns<input id="charPronouns" maxlength="30" placeholder="she/her, he/him, they/them..." /></label>
+                <label>Voice style<select id="charVoice"><option>Soft-spoken</option><option>Warm</option><option>Direct</option><option>Energetic</option><option>Measured</option><option>Raspy</option><option>Formal</option></select></label>
+              </div>
+            </section>
+
+            <section class="creator-step hidden" data-step="1">
+              <h3>2. Appearance</h3><p class="muted">These traits become the permanent visual identity profile used by future character art.</p>
+              <div class="form-grid">
+                <label>Height<input id="charHeight" maxlength="30" placeholder="5'8\" / 173 cm" /></label>
+                <label>Build<select id="charBuild"><option>Average</option><option>Lean</option><option>Athletic</option><option>Broad</option><option>Muscular</option><option>Heavyset</option><option>Petite</option></select></label>
+                <label>Skin tone<input id="charSkin" maxlength="40" placeholder="Describe skin tone" /></label>
+                <label>Eye color<input id="charEyes" maxlength="30" placeholder="Brown" /></label>
+                <label>Hair color<input id="charHairColor" maxlength="30" placeholder="Black" /></label>
+                <label>Hair style<input id="charHairStyle" maxlength="60" placeholder="Long braid, shaved sides..." /></label>
+                <label>Face / features<input id="charFace" maxlength="100" placeholder="Round face, strong jaw, freckles..." /></label>
+                <label>Distinguishing marks<input id="charMarks" maxlength="120" placeholder="Scars, tattoos, birthmarks..." /></label>
+                <label>Clothing style<input id="charClothing" maxlength="120" placeholder="Will be influenced by nation and era" /></label>
+              </div>
+            </section>
+
+            <section class="creator-step hidden" data-step="2">
+              <h3>3. Homeland</h3><p class="muted">Your culture determines what ordinary life looked like before the game began.</p>
+              <div class="form-grid">
+                <label>Nation / culture<select id="charNation"></select></label>
+                <label>Region / hometown<select id="charRegion"></select></label>
+                <label>Social upbringing<select id="charUpbringing"><option>Working family</option><option>Merchant family</option><option>Military family</option><option>Scholarly household</option><option>Artisan family</option><option>Fishing village</option><option>Farming village</option><option>Noble household</option><option>Temple upbringing</option><option>Street upbringing</option><option>Nomadic family</option><option>Orphaned / fostered</option></select></label>
+                <label>Education<select id="charEducation"><option>Family taught</option><option>Formal school</option><option>Private tutor</option><option>Temple education</option><option>Military academy</option><option>Apprenticeship</option><option>Self-taught</option><option>Little formal education</option></select></label>
+              </div>
+            </section>
+
+            <section class="creator-step hidden" data-step="3">
+              <h3>4. Bending & Training</h3><p class="muted">Bending is a skill and heritage—not a character class. Advanced techniques are earned later.</p>
+              <div class="form-grid">
+                <label>Bending status<select id="charBending"><option value="none">Nonbender</option><option value="water">Waterbender</option><option value="earth">Earthbender</option><option value="fire">Firebender</option><option value="air">Airbender</option><option value="unknown">Undiscovered / uncertain</option></select></label>
+                <label>Training history<select id="charTraining"><option>Untrained</option><option>Late bloomer</option><option>Self-taught</option><option>Family trained</option><option>Local instructor</option><option>Academy trained</option><option>Temple trained</option><option>Master's apprentice</option></select></label>
+                <label>Nonbending focus / secondary discipline<select id="charDiscipline"><option>None yet</option><option>Martial arts</option><option>Swordsmanship</option><option>Archery</option><option>Chi blocking</option><option>Acrobatics</option><option>Engineering</option><option>Medicine</option><option>Investigation</option><option>Leadership</option><option>Craftsmanship</option></select></label>
+              </div>
+              <div id="bendingCompatibility" class="notice"></div>
+            </section>
+
+            <section class="creator-step hidden" data-step="4">
+              <h3>5. Everyday Life</h3><p class="muted">You begin as a resident of the world, so you need something to wake up and do tomorrow morning.</p>
+              <div class="form-grid">
+                <label>Occupation<select id="charOccupation"></select></label>
+                <label>Economic starting point<select id="charWealth"><option>Struggling</option><option>Modest</option><option selected>Stable</option><option>Comfortable</option><option>Wealthy</option></select></label>
+                <label>Current living situation<select id="charHome"><option>With family</option><option>Rented room</option><option>Shared home</option><option>Own small home</option><option>Employer housing</option><option>Temple / communal housing</option><option>Traveling / temporary lodging</option></select></label>
+              </div>
+            </section>
+
+            <section class="creator-step hidden" data-step="5">
+              <h3>6. Personality</h3><p class="muted">Choose what is true at the beginning. Your actions can change these traits over time.</p>
+              <div class="trait-section"><h4>Choose 3–5 personality traits</h4><div id="personalityChoices" class="chip-grid"></div></div>
+              <div class="trait-section"><h4>Choose 1–3 strengths</h4><div id="strengthChoices" class="chip-grid"></div></div>
+              <div class="trait-section"><h4>Choose 1–3 flaws</h4><div id="flawChoices" class="chip-grid"></div></div>
+            </section>
+
+            <section class="creator-step hidden" data-step="6">
+              <h3>7. Goals, Relationships & History</h3><p class="muted">Your life already contains people and unfinished dreams.</p>
+              <div class="form-grid two">
+                <label>Primary life goal<input id="charGoal" maxlength="120" placeholder="Open a tea house, become a healer, travel the world..." /></label>
+                <label>Private worry or fear<input id="charFear" maxlength="120" placeholder="Disappointing my family, deep water..." /></label>
+                <label>Relationship preference<select id="charRomance"><option value="open">Romance may develop naturally</option><option value="friends-only">No romance for this character</option><option value="slow">Romance allowed, prefer slow development</option></select></label>
+                <label>Family generation<select id="charFamilyMode"><option value="generate">Generate a starting family</option><option value="small">Generate a small household</option><option value="independent">No immediate household / independent</option></select></label>
+                <label>Starting connection<select id="charStartingConnection"><option value="childhood-friend">Childhood friend</option><option value="coworker">Coworker</option><option value="neighbor">Neighbor</option><option value="former-classmate">Former classmate</option><option value="friendly-rival">Friendly rival</option><option value="mentor-contact">Older mentor contact</option></select></label>
+                <label>Starting bond<select id="charStartingBond"><option value="trusted">Trusted</option><option value="familiar">Familiar</option><option value="complicated">Complicated</option><option value="distant">Distant</option></select></label>
+                <label class="full-span">Unfinished background thread<input id="charBackgroundHook" maxlength="160" placeholder="I owe someone money, my sibling disappeared, I want to leave town, my family expects me to inherit the shop..." /></label>
+              </div>
+              <div class="notice">Romance is never guaranteed or forced. NPC compatibility, attraction, shared history, preferences, and choices will matter once the relationship simulation is active.</div>
+            </section>
+
+            <section class="creator-step hidden" data-step="7">
+              <h3>8. Playstyle & Content</h3><p class="muted">Set the tone before your first morning. These can be changed later in Settings & Saves.</p>
+              <div class="form-grid two">
+                <label>Combat intensity<select id="onboardCombatIntensity"><option value="light">Light</option><option value="standard" selected>Standard</option><option value="brutal">Brutal</option></select></label>
+                <label>Romance<select id="onboardRomance"><option value="off">Off</option><option value="light">Light</option><option value="mature" selected>Mature</option></select></label>
+                <label>Progression pacing<select id="onboardPacing"><option value="standard" selected>Standard</option><option value="relaxed">Relaxed</option><option value="slowLife">Slow Life</option></select></label>
+              </div>
+              <div class="setting-checks">
+                <label><input type="checkbox" id="onboardPermanentInjury" checked> Permanent injuries</label>
+                <label><input type="checkbox" id="onboardCharacterDeath" checked> Character death</label>
+              </div>
+              <div class="notice">Adult romance remains non-explicit. Under-18 characters are always excluded from adult romantic/intimate mechanics regardless of setting.</div>
+            </section>
+
+            <section class="creator-step hidden" data-step="8">
+              <h3>9. Review Your Life</h3><p class="muted">Nothing here makes you destined. It simply establishes who you are on the first morning.</p>
+              <div id="characterReview" class="review-card"></div>
+            </section>
+
+            <div class="creator-actions"><button type="button" id="creatorBackBtn">Back</button><div class="spacer"></div><button type="button" id="creatorNextBtn" class="primary">Continue</button><button type="submit" id="createCharacterBtn" class="primary hidden">Begin This Life</button></div>
+          </form>
+        </article>
+      </section>
+
+      <div class="actions footer-actions"><button id="saveWorldBtn" class="primary">Save World</button><button id="newWorldBtn">Return to Launcher</button><button id="deleteWorldBtn" class="danger">Delete Local World</button></div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

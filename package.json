@@ -1,0 +1,13 @@
+{
+  "name": "project-four-nations",
+  "private": true,
+  "version": "5.10.0-beta.1",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check app.js && node --check server.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
