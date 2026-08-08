@@ -1,39 +1,35 @@
-# Project Four Nations — Beta 2 Hotfix 2
+# Project Four Nations — Beta 2.1
 
-This hotfix redesigns gameplay guidance from the ground up.
+Player Experience & Personal Story Director rebuild.
 
-## Guided Play
-The Life screen now begins with a persistent **Start Here · Guided Play** panel.
+## Play first, dashboard second
+Starting a life now produces a live **Chapter scene**. The world establishes where you are, what is happening, who is nearby, and which personal thread currently has momentum. Contextual actions are immediately playable, while **Do something else…** preserves complete freedom.
 
-For new characters it teaches the basics one step at a time:
-1. Look around
-2. Interact with someone
-3. Do something ordinary
-4. Engage with the world
-5. Try Freeform when desired
+## Personal Story Director
+Character creation seeds a private story profile from:
+- backstory / unfinished business
+- goals
+- fears
+- family
+- important relationships
+- occupation
+- requested story style
+- story-focus sliders
 
-Each step explains why it matters and provides a button that actually performs or opens the correct system.
+The Director creates personal story threads and open questions instead of inserting the character into a prewritten campaign. Threads begin as questions; play gradually develops them. Player actions add beats and move threads from introduction into development and complication.
 
-## What Can I Do?
-A permanent menu now gives direct entry points for:
-- Talk & Relationships
-- Work & Career
-- Training
-- Explore Nearby
-- Travel
-- Events
-- Rest
-- Eat
-- Your Stories
-- Freeform Action
+## My Story
+The Life screen shows active personal, family, relationship, ambition, and internal threads as a story journal rather than a quest checklist.
 
-## Freeform is no longer the default
-Freeform Action is now presented as an advanced optional tool rather than the main thing a new player must understand. The normal local actions and guided controls remain fully playable without it.
+## World initiative
+Scenes can surface ordinary responsibilities, nearby NPCs, local events, major background events, family pressure, or unresolved backstory. Events continue to belong to the simulation; the player is not automatically responsible for solving them.
 
-## First Morning
-The main opening choice is now **Start My First Day**, which sends the player directly to Guided Play.
+## Character creator
+Appearance now has premade dropdown choices for gender, skin tone, eyes, hair color, hairstyle, face, distinguishing marks, clothing, hair texture, and build. The larger libraries make it easy to create a character without inventing every description.
+
+## Story preference
+Players can choose the kind of story they hope to experience and tune Adventure, Romance, Family, Career, Mystery, and Spirits. These guide the Director rather than prewriting outcomes.
 
 ## Compatibility
-- Schema Version 53
-- Beta 2 Hotfix 1 remains in the migration chain
-- Package version 6.10.2-beta.2
+- Schema Version 54
+- Beta 2 Hotfix 2 remains in migration chain

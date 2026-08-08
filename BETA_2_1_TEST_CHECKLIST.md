@@ -1,0 +1,12 @@
+# Beta 2.1 Test Checklist
+- Create a fresh character using only premade appearance options
+- Create another using a distinctive backstory, goal, fear, and story preference
+- Start Life and confirm a Chapter scene appears immediately
+- Confirm the opening references the created character rather than a generic campaign
+- Click a contextual story action and confirm it resolves
+- Use Do something else and submit a custom action
+- Confirm My Story contains character-specific threads
+- Play several scenes and confirm thread beats accumulate
+- Ignore a surfaced world event and confirm the game remains playable
+- Follow a family/personal thread and see it develop
+- Save/reload and confirm personal story state persists
